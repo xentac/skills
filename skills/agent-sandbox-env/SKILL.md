@@ -23,6 +23,7 @@ These files live alongside this skill and should be read when the relevant situa
 - **An HTTP/HTTPS request returns 403** → read `network-policy.md`
 - **SSH or other non-HTTP connection fails** → read `network-policy.md`
 - **`git push` fails with an authentication error** → read `github-auth.md`
+- **`/remote-control` or `/rc` fails with `Transport closed (code 4091)`** → read `remote-control.md`
 - **Questions about the environment** (ports, persistence, env vars, reaching the host) → read `environment.md`
 
 ## Looking up sbx documentation and issues
