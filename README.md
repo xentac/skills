@@ -36,3 +36,11 @@ npx skills add xentac/skills
 # One skill
 npx skills add xentac/skills --skill skill-name
 ```
+
+## Updating
+
+`npx skills update` has a [known bug](https://github.com/vercel-labs/skills/issues/484) where it always reports skills as up to date even when they've changed. Re-run the install command to update:
+
+```bash
+npx skills add xentac/skills -y
+```
