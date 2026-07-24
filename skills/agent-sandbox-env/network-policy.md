@@ -48,7 +48,9 @@ Outbound SSH on port 22 is not reliably supported through the network proxy even
 
 **GitHub SSH** works by routing through the HTTP proxy via GitHub's SSH-over-HTTPS endpoint (`ssh.github.com:443`). The host SSH agent is forwarded automatically into the sandbox (keys stay on the host; the sandbox can use them for auth but cannot read them).
 
-To enable GitHub SSH, add this to `~/.ssh/config` inside the sandbox:
+> **Note:** The following configuration is not officially documented by Docker. It was discovered in [docker/sbx-releases#121](https://github.com/docker/sbx-releases/issues/121) and confirmed working. The official docs suggest using HTTPS URLs or IP-based allow rules instead.
+
+Add this to `~/.ssh/config` inside the sandbox:
 
 ```
 Host github.com
@@ -63,7 +65,7 @@ ssh -T git@github.com
 # Hi <user>! You've successfully authenticated...
 ```
 
-For SSH to **other hosts**, consult the sbx docs and issues — there is no general-purpose SSH solution through the proxy at this time.
+For SSH to **other hosts**, the official docs suggest using HTTPS URLs as an alternative to SSH, or adding IP-based allow rules via `sbx policy allow network "<ip>:22"` on the host — though note that port 22 allow rules have a known reliability issue ([#46](https://github.com/docker/sbx-releases/issues/46)).
 
 UDP and ICMP cannot be unblocked at all — they are blocked at the network layer.
 
