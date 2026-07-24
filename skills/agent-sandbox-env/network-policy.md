@@ -22,13 +22,17 @@ Blocked by network policy: domain <host>
 
 3. **If the block is overridable**, stop and tell the user:
 
-> I'm running inside a Docker Sandbox (`$SANDBOX_VM_ID`) and my request to `<domain>` was blocked by the network policy. To allow it, run this on your **host**:
+> I'm running inside a Docker Sandbox (`$SANDBOX_VM_ID`) and my request to `<domain>` was blocked by the network policy. To allow it for this sandbox only, run on your **host**:
+> ```bash
+> sbx policy allow network --sandbox $SANDBOX_VM_ID <domain>
+> ```
+> To allow it across all sandboxes instead:
 > ```bash
 > sbx policy allow network <domain>
 > ```
 > Let me know once you've run it and I'll retry.
 
-Always suggest the specific domain. **Never suggest `sbx policy allow network "**"`** — see warning below.
+Default to suggesting the **per-sandbox** form (`--sandbox <name>`). Only suggest the global form if the user explicitly wants it applied everywhere. **Never suggest `sbx policy allow network "**"`** — see warning below.
 
 4. **After the user confirms**, retry the request.
 
@@ -74,6 +78,7 @@ UDP and ICMP cannot be unblocked at all — they are blocked at the network laye
 The `sbx` CLI is not available inside the sandbox. Ask the user to run these on their **host**:
 
 ```bash
-sbx policy log   # recent connections: host, rule, reason, last-seen
-sbx policy ls    # active rules and their status
+sbx policy log                        # recent connections: host, rule, reason, last-seen
+sbx policy ls                         # all active rules (global + per-sandbox)
+sbx policy ls $SANDBOX_VM_ID          # rules for this sandbox only
 ```

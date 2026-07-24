@@ -7,7 +7,7 @@ The `sbx` CLI is **not available inside the sandbox** — all `sbx` commands mus
 | Task | Where |
 |---|---|
 | Agent code, file edits, shell commands | Inside the sandbox |
-| `sbx policy allow network <domain>` | Host terminal |
+| `sbx policy allow network [--sandbox <name>] <domain>` | Host terminal |
 | `sbx secret set <name> github -t -` | Host terminal |
 | `sbx ports <name> --publish <port>` | Host terminal |
 | `sbx exec -it <name> bash` | Host terminal |
