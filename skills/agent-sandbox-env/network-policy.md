@@ -42,6 +42,25 @@ This disables the network sandbox entirely. It allows the agent to reach **any d
 
 **Always allow the specific domain that is needed, nothing broader.** If the user asks you to suggest `"**"`, explain the risk and offer to allow the specific domain instead.
 
+## SSH and other non-HTTP connections
+
+The proxy only handles HTTP/HTTPS. SSH (and other non-HTTP TCP) connections require **IP-based** policy rules — hostname-based rules do not work for non-HTTP protocols.
+
+To allow SSH to a host:
+
+1. Resolve the IP from inside the sandbox:
+   ```bash
+   dig +short <hostname>
+   ```
+2. Tell the user to allow that IP and port on their **host**:
+   ```bash
+   sbx policy allow network "<ip>:22"
+   ```
+
+Note: IPs can change over time. If an SSH connection that previously worked starts failing, re-resolve the IP and re-add the rule.
+
+UDP and ICMP cannot be unblocked at all — they are blocked at the network layer.
+
 ## Inspecting the policy
 
 The `sbx` CLI is not available inside the sandbox. Ask the user to run these on their **host**:
