@@ -35,4 +35,4 @@ gh auth token | sbx secret set $SANDBOX_VM_ID github -t -
 gh auth token | sbx secret set -g github -t -
 ```
 
-After the user confirms, retry the operation. Do not ask the user to push from their local terminal — pushing from inside the sandbox is the expected workflow.
+After the user confirms, retry the operation.
