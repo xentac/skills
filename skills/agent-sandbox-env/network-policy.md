@@ -42,22 +42,28 @@ This disables the network sandbox entirely. It allows the agent to reach **any d
 
 **Always allow the specific domain that is needed, nothing broader.** If the user asks you to suggest `"**"`, explain the risk and offer to allow the specific domain instead.
 
-## SSH and other non-HTTP connections
+## SSH connections
 
-The proxy only handles HTTP/HTTPS. SSH (and other non-HTTP TCP) connections require **IP-based** policy rules — hostname-based rules do not work for non-HTTP protocols.
+Outbound SSH on port 22 is not reliably supported through the network proxy even with explicit allow rules.
 
-To allow SSH to a host:
+**GitHub SSH** works by routing through the HTTP proxy via GitHub's SSH-over-HTTPS endpoint (`ssh.github.com:443`). The host SSH agent is forwarded automatically into the sandbox (keys stay on the host; the sandbox can use them for auth but cannot read them).
 
-1. Resolve the IP from inside the sandbox:
-   ```bash
-   dig +short <hostname>
-   ```
-2. Tell the user to allow that IP and port on their **host**:
-   ```bash
-   sbx policy allow network "<ip>:22"
-   ```
+To enable GitHub SSH, add this to `~/.ssh/config` inside the sandbox:
 
-Note: IPs can change over time. If an SSH connection that previously worked starts failing, re-resolve the IP and re-add the rule.
+```
+Host github.com
+  HostName ssh.github.com
+  Port 443
+  ProxyCommand socat - PROXY:gateway.docker.internal:%h:%p,proxyport=3128
+```
+
+Test with:
+```bash
+ssh -T git@github.com
+# Hi <user>! You've successfully authenticated...
+```
+
+For SSH to **other hosts**, consult the sbx docs and issues — there is no general-purpose SSH solution through the proxy at this time.
 
 UDP and ICMP cannot be unblocked at all — they are blocked at the network layer.
 
