@@ -38,19 +38,44 @@ Default to suggesting the **per-sandbox** form (`--sandbox <name>`). Only sugges
 
 ## Subagents: passing blocked requests to the parent
 
-Subagents cannot surface messages to the user directly. When a subagent hits a blocked request, it must signal the parent agent so the parent can pause, ask the user, and re-invoke the subagent after the domain is allowed.
+Subagents cannot surface messages to the user directly. When a subagent hits a blocked request, it must signal the parent agent so the parent can pause, ask the user, and re-invoke the subagent after domains are allowed.
 
-**If you are a subagent** and a request is blocked by an overridable policy, do not fail silently or retry indefinitely. Instead, abort the task and return a response in this form:
+### Batching blocks during research tasks
+
+For open-ended tasks like deep research, **do not stop on the first blocked domain.** Instead:
+
+1. When a request returns 403 with an overridable block, note the domain and continue.
+2. Try all other planned requests — some may succeed, some may also be blocked.
+3. Complete as much of the task as possible with the domains that are accessible.
+4. At the end, return your partial results alongside a `SANDBOX_NETWORK_BLOCKED` block listing every domain that was blocked.
+
+This avoids a round-trip to the user for each domain and lets the subagent make meaningful progress in a single pass.
+
+### Signal format
+
+Return a `SANDBOX_NETWORK_BLOCKED` block after your results (or alone if nothing could be completed):
 
 ```
 SANDBOX_NETWORK_BLOCKED
-domain: <domain>
 sandbox: <value of $SANDBOX_VM_ID>
-attempted: <brief description of what you were trying to do>
-command: sbx policy allow network --sandbox <$SANDBOX_VM_ID> <domain>
+blocked:
+  - domain: <domain-1>
+    attempted: <what you were trying to fetch/do>
+    command: sbx policy allow network --sandbox <$SANDBOX_VM_ID> <domain-1>
+  - domain: <domain-2>
+    attempted: <what you were trying to fetch/do>
+    command: sbx policy allow network --sandbox <$SANDBOX_VM_ID> <domain-2>
+partial_results: <yes/no — whether usable results accompany this signal>
 ```
 
-**If you are the parent agent** and a subagent returns a `SANDBOX_NETWORK_BLOCKED` response, treat it as a pause — not a failure. Surface the blocked domain and the exact `sbx policy allow` command to the user, wait for confirmation that they've run it, then re-invoke the subagent to continue from where it left off.
+### Parent agent behaviour
+
+When a subagent response contains `SANDBOX_NETWORK_BLOCKED`:
+
+1. Extract and present the blocked domain list to the user. For each entry, show the domain, what it was needed for, and the `sbx policy allow` command.
+2. Let the user decide which domains to allow (they may not want all of them).
+3. Wait for the user to confirm the commands have been run on the host.
+4. Re-invoke the subagent. If it returned partial results, pass those back as context so it can pick up from where it left off rather than re-fetching what already succeeded.
 
 ## ⚠ WARNING: Never suggest allowing all traffic
 
