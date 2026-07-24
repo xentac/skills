@@ -1,18 +1,31 @@
 # GitHub Authentication
 
-The sandbox proxy transparently injects GitHub credentials on outbound Git requests. As a result, `gh auth status` always shows "not logged in" inside the sandbox — this is **expected and normal**.
+The sandbox proxy injects a GitHub token via the `GH_TOKEN` environment variable. `gh auth status` reflects the real authentication state — use it to check whether credentials are working.
 
-## Recognising an expired token
+## Checking auth status
 
-When the injected token expires, `git push` fails with:
+```bash
+gh auth status
+```
+
+If authenticated, output looks like:
+
+```
+github.com
+  ✓ Logged in to github.com account <user> (GH_TOKEN)
+  - Active account: true
+  ...
+```
+
+## When auth is broken
+
+If `gh auth status` shows you are **not** logged in, or `git push` fails with:
 
 ```
 fatal: could not read Username for 'https://github.com'
 ```
 
-## Refreshing the token
-
-Tell the user to run on their **host**:
+the injected token is missing or expired. Tell the user to run on their **host**:
 
 ```bash
 # This sandbox only (takes effect immediately):
@@ -22,4 +35,4 @@ gh auth token | sbx secret set $SANDBOX_VM_ID github -t -
 gh auth token | sbx secret set -g github -t -
 ```
 
-After the user confirms they've run the command, retry the push. Do not ask the user to push from their local terminal — pushing from inside the sandbox is the expected workflow.
+After the user confirms, retry the operation. Do not ask the user to push from their local terminal — pushing from inside the sandbox is the expected workflow.
