@@ -77,10 +77,10 @@ Tell the user to run on their **host**:
 
 ```bash
 # For this sandbox only (takes effect immediately):
-sbx secret set $SANDBOX_VM_ID github -t "$(gh auth token)"
+gh auth token | sbx secret set $SANDBOX_VM_ID github -t -
 
 # Or globally for all future sandboxes:
-sbx secret set -g github -t "$(gh auth token)"
+gh auth token | sbx secret set -g github -t -
 ```
 
 > Do not ask the user to push from their local terminal — Git push should work from inside the sandbox once the token is refreshed.
