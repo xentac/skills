@@ -2,6 +2,8 @@
 
 ## What runs where
 
+The `sbx` CLI is **not available inside the sandbox** — all `sbx` commands must be run on the host.
+
 | Task | Where |
 |---|---|
 | Agent code, file edits, shell commands | Inside the sandbox |

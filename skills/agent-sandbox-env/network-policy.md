@@ -36,11 +36,9 @@ Blocked by network policy: domain <host>
 
 ## Inspecting the policy
 
-Run these inside the sandbox:
+The `sbx` CLI is not available inside the sandbox. Ask the user to run these on their **host**:
 
 ```bash
 sbx policy log   # recent connections: host, rule, reason, last-seen
 sbx policy ls    # active rules and their status
 ```
-
-> **`sbx policy allow` must be run on the host.** You cannot modify network policy from inside the sandbox.
