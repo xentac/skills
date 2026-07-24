@@ -36,6 +36,22 @@ Default to suggesting the **per-sandbox** form (`--sandbox <name>`). Only sugges
 
 4. **After the user confirms**, retry the request.
 
+## Subagents: passing blocked requests to the parent
+
+Subagents cannot surface messages to the user directly. When a subagent hits a blocked request, it must signal the parent agent so the parent can pause, ask the user, and re-invoke the subagent after the domain is allowed.
+
+**If you are a subagent** and a request is blocked by an overridable policy, do not fail silently or retry indefinitely. Instead, abort the task and return a response in this form:
+
+```
+SANDBOX_NETWORK_BLOCKED
+domain: <domain>
+sandbox: <value of $SANDBOX_VM_ID>
+attempted: <brief description of what you were trying to do>
+command: sbx policy allow network --sandbox <$SANDBOX_VM_ID> <domain>
+```
+
+**If you are the parent agent** and a subagent returns a `SANDBOX_NETWORK_BLOCKED` response, treat it as a pause — not a failure. Surface the blocked domain and the exact `sbx policy allow` command to the user, wait for confirmation that they've run it, then re-invoke the subagent to continue from where it left off.
+
 ## ⚠ WARNING: Never suggest allowing all traffic
 
 ```bash

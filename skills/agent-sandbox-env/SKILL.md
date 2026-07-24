@@ -16,6 +16,14 @@ echo $SANDBOX_VM_ID     # set to the sandbox name (e.g. "my-sandbox")
 
 `$SANDBOX_VM_ID` is also the hostname and is used in all host-side `sbx` commands.
 
+## Role: main agent vs. subagent
+
+How you handle sandbox limitations depends on whether you can talk to the user directly.
+
+**Main agent** (direct user interaction): pause, explain the issue, give the user the exact command to run, then retry after confirmation.
+
+**Subagent** (spawned by an orchestrator, no direct user access): abort the current task and return a structured `SANDBOX_NETWORK_BLOCKED` signal so the parent agent can surface it. See `network-policy.md` for the signal format.
+
 ## When to consult the reference files
 
 These files live alongside this skill and should be read when the relevant situation arises:
