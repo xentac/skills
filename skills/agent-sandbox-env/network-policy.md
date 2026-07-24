@@ -26,13 +26,21 @@ Blocked by network policy: domain <host>
 > ```bash
 > sbx policy allow network <domain>
 > ```
-> Or to allow all traffic not on the explicit denylist:
-> ```bash
-> sbx policy allow network "**"
-> ```
 > Let me know once you've run it and I'll retry.
 
+Always suggest the specific domain. **Never suggest `sbx policy allow network "**"`** — see warning below.
+
 4. **After the user confirms**, retry the request.
+
+## ⚠ WARNING: Never suggest allowing all traffic
+
+```bash
+sbx policy allow network "**"   # NEVER suggest this
+```
+
+This disables the network sandbox entirely. It allows the agent to reach **any domain on the internet** — including exfiltration targets, malicious infrastructure, and services the user has no intention of exposing. The network policy exists as a security boundary; bypassing it wholesale defeats the purpose of running in a sandbox at all.
+
+**Always allow the specific domain that is needed, nothing broader.** If the user asks you to suggest `"**"`, explain the risk and offer to allow the specific domain instead.
 
 ## Inspecting the policy
 
