@@ -179,17 +179,13 @@ stats/cooldowns" ground.
   chain going. Polls with a Public-level API key registered through the
   script's own settings, and also reads some data directly from the page
   itself — a real-world example of the mixed API/scraped pattern discussed
-  in `rules-and-compliance.md`. It deliberately never triggers a
-  notification/alert from the scraped portion, only from API data, which is
-  exactly the compliance line drawn there: alerts are fine when API-driven,
-  not when scraped-page-driven, and this script's own design respects that
-  distinction rather than treating "it's already reading the page anyway"
-  as license to alert from it.
+  in `rules-and-compliance.md`: notifications/alerts only ever fire off the
+  API-sourced data, never the scraped portion, which lines up with the
+  compliance distinction drawn there between API-driven and
+  scraped-page-driven alerts.
 - **YATA** — another well-known community web tool (named repeatedly across
   the wiki as a reference source, e.g. for faction-upgrade respect
-  calculators), in regular use alongside the others above, though
-  considered less preferred than FFScouter/Torn PDA/torn.report by at least
-  one active user of all four.
+  calculators), in regular use alongside the others above.
 
 A new service should be justified — check what's already out there before
 proposing one from scratch — but don't read the existing ecosystem as

@@ -40,6 +40,8 @@ asked.
   (ranked war/raid/territory), jail, hospital → `game-mechanics.md`
 - **Torn's rules in general**, not just scripting →
   `rules-and-compliance.md`
+- **Third-party tool ecosystem** (what's already out there, described
+  neutrally — not tied to any particular developer) → `api.md`
 
 ## Snapshots
 

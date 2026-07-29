@@ -91,8 +91,8 @@ take the whole offenses list seriously, scripting included.
 
 A real example of the mixed pattern in checklist item 3: **Torn War Stuff
 Enhanced** (see `api.md`'s tool ecosystem section) polls the API and also
-reads some data from the faction war page itself, but deliberately never
-triggers a notification from the scraped portion — only from API data.
+reads some data from the faction war page itself, and only triggers
+notifications from the API-sourced data, never the scraped portion.
 That's the compliance line in practice, not just in the abstract.
 
 ## When applicability is genuinely unclear: ask Torn staff, don't guess
