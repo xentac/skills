@@ -1,6 +1,6 @@
 ---
 name: markdown-lint
-description: Write Markdown files that pass markdownlint cleanly (MD013 line length, MD022/MD031/MD032 blank-line rules, MD040 fenced-code language, MD047 trailing newline, MD004/MD029 list-marker consistency, MD001/MD025/MD041 heading structure, MD034 bare URLs) instead of producing files that flag dozens of lint errors the moment they're opened in an editor. Use whenever writing or editing a .md file.
+description: Write Markdown files that pass markdownlint cleanly (MD013 line length, MD022/MD031/MD032 blank-line rules, MD040 fenced-code language, MD047 trailing newline, MD004/MD029 list-marker consistency, MD001/MD025/MD041 heading structure, MD034 bare URLs) instead of producing files that flag dozens of lint errors the moment they're opened in an editor. Can also generate a starter markdownlint config file directly in a project that doesn't have one. Use whenever writing or editing a .md file, or when asked to set up/add a markdownlint config.
 ---
 
 # Writing lint-clean Markdown
@@ -52,6 +52,24 @@ Skim it once specifically for line length and blank-line spacing — those
 two categories account for most of what shows up as lint noise on open.
 If the project has a markdownlint config (`.markdownlint.yaml`,
 `.markdownlint.jsonc`, `.markdownlint-cli2.yaml`), check it for
-project-specific overrides before assuming the defaults above apply. If a
-project doesn't have one and produces a lot of table/code-block line-length
-noise, see `config.md` for a starter config to propose adding.
+project-specific overrides before assuming the defaults above apply.
+
+## Generating a config in a project
+
+If a project has no markdownlint config and either the user asks for one or
+the project is producing a lot of unavoidable table/code-block
+line-length noise, create the config directly rather than just describing
+it:
+
+1. Check for an existing config first, under any of: `.markdownlint.yaml`,
+   `.markdownlint.yml`, `.markdownlint.json`, `.markdownlint.jsonc`,
+   `.markdownlint-cli2.yaml`, `.markdownlint-cli2.jsonc`,
+   `.markdownlint-cli2.cjs`, or a `markdownlint-cli2`/`markdownlint` key in
+   `package.json`. If one exists, merge in the overrides from `config.md`
+   instead of adding a second file — don't clobber unrelated keys already
+   there.
+2. If none exists, write `.markdownlint.yaml` at the project root using the
+   contents in `config.md` verbatim (adjust only if the project's own
+   conventions clearly call for JSON/JSONC or the `-cli2` variant instead).
+3. State in one line what was created or changed and why — don't leave the
+   user to discover a new file in `git status` unexplained.
