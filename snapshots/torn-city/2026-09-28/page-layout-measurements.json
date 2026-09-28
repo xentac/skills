@@ -1,0 +1,112 @@
+[
+ {
+  "snippet": "breakpoint-census",
+  "path": "/factions.php",
+  "viewport": {
+   "innerWidth": 1536,
+   "clientWidth": 1522,
+   "dpr": 1.8700001239776611
+  },
+  "metaViewport": "width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale=1, viewport-fit=cover, maximum-scale=1",
+  "htmlClass": "",
+  "bodyClass": "d body r regular with-sidebar dark-mode",
+  "breakpoints": [
+   ["max-width: 784px", 564],
+   ["max-width: 1000px", 473],
+   ["max-width: 386px", 300],
+   ["max-width: 600px", 260],
+   ["min-width: 785px", 10],
+   ["max-width: 976px", 8],
+   ["max-width: 578px", 8],
+   ["min-width: 784px", 5],
+   ["max-width: 1001px", 4],
+   ["max-width: 805px", 2],
+   ["max-width: 768px", 1],
+   ["max-width: 40em", 1],
+   ["max-width: 31.25em", 1]
+  ],
+  "blockedSheets": [
+   "https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap"
+  ],
+  "chain": [
+   { "el": "body#body.d.body.r.regular.with-sidebar.dark-mode", "w": 1522, "x": 0 },
+   { "el": "div.content.responsive-sidebar-container.logged-in", "w": 1522, "x": 0 },
+   { "el": "div#mainContainer.container", "w": 976, "x": 273 },
+   { "el": "div.content-wrapper.autumn", "w": 784, "x": 465 },
+   { "el": "div#factions", "w": 784, "x": 465 },
+   { "el": "div#react-root", "w": 784, "x": 465 },
+   { "el": "div", "w": 784, "x": 465 },
+   { "el": "div.faction-info-wrap.restyle.another-faction", "w": 784, "x": 465 }
+  ]
+ },
+ {
+  "snippet": "layout",
+  "path": "/factions.php",
+  "innerWidth": 920,
+  "clientWidth": 906,
+  "bodyClass": "d body r regular with-sidebar dark-mode",
+  "matches": { "386": false, "600": false, "784": false, "1000": true },
+  "mainContainer": { "el": "div#mainContainer.container", "w": 906, "x": 0, "display": "flex" },
+  "children": [
+   { "el": "div#sidebarroot", "w": 906, "x": 0, "display": "block" },
+   { "el": "div.content-wrapper.autumn", "w": 784, "x": 61, "display": "block" },
+   { "el": "div.clear", "w": 0, "x": 453, "display": "block" }
+  ]
+ },
+ {
+  "snippet": "layout",
+  "path": "/factions.php",
+  "innerWidth": 767,
+  "clientWidth": 753,
+  "bodyClass": "d body r regular with-sidebar dark-mode",
+  "matches": { "386": false, "600": false, "784": true, "1000": true },
+  "mainContainer": { "el": "div#mainContainer.container", "w": 753, "x": 0, "display": "flex" },
+  "children": [
+   { "el": "div#sidebarroot", "w": 753, "x": 0, "display": "block" },
+   { "el": "div.content-wrapper.autumn", "w": 386, "x": 183, "display": "block" },
+   { "el": "div.clear", "w": 0, "x": 376, "display": "block" }
+  ]
+ },
+ {
+  "snippet": "layout",
+  "path": "/factions.php",
+  "innerWidth": 613,
+  "clientWidth": 599,
+  "bodyClass": "d body r regular with-sidebar dark-mode",
+  "matches": { "386": false, "600": false, "784": true, "1000": true },
+  "mainContainer": { "el": "div#mainContainer.container", "w": 599, "x": 0, "display": "flex" },
+  "children": [
+   { "el": "div#sidebarroot", "w": 599, "x": 0, "display": "block" },
+   { "el": "div.content-wrapper.autumn", "w": 386, "x": 106, "display": "block" },
+   { "el": "div.clear", "w": 0, "x": 299, "display": "block" }
+  ]
+ },
+ {
+  "snippet": "layout",
+  "path": "/factions.php",
+  "innerWidth": 459,
+  "clientWidth": 445,
+  "bodyClass": "d body r regular with-sidebar dark-mode",
+  "matches": { "386": false, "600": true, "784": true, "1000": true },
+  "mainContainer": { "el": "div#mainContainer.container", "w": 445, "x": 0, "display": "flex" },
+  "children": [
+   { "el": "div#sidebarroot", "w": 445, "x": 0, "display": "block" },
+   { "el": "div.content-wrapper.autumn", "w": 386, "x": 30, "display": "block" },
+   { "el": "div.clear", "w": 0, "x": 223, "display": "block" }
+  ]
+ },
+ {
+  "snippet": "layout",
+  "path": "/factions.php",
+  "innerWidth": 454,
+  "clientWidth": 440,
+  "bodyClass": "d body r regular with-sidebar dark-mode",
+  "matches": { "386": false, "600": true, "784": true, "1000": true },
+  "mainContainer": { "el": "div#mainContainer.container", "w": 441, "x": 0, "display": "flex" },
+  "children": [
+   { "el": "div#sidebarroot", "w": 441, "x": 0, "display": "block" },
+   { "el": "div.content-wrapper.autumn", "w": 386, "x": 27, "display": "block" },
+   { "el": "div.clear", "w": 0, "x": 220, "display": "block" }
+  ]
+ }
+]
