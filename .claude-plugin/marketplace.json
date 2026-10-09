@@ -1,0 +1,25 @@
+{
+  "name": "xentac",
+  "owner": { "name": "Jason Chu", "url": "https://github.com/xentac" },
+  "description": "Jason's personal agent skills, split into plugins by layer.",
+  "plugins": [
+    {
+      "name": "torn",
+      "source": "./",
+      "strict": false,
+      "description": "Torn City game knowledge: API, mechanics, rules compliance, page layout.",
+      "skills": ["./skills/torn-city"]
+    },
+    {
+      "name": "tooling",
+      "source": "./",
+      "strict": false,
+      "description": "Repo tooling: markdown linting config and agent sandbox environments.",
+      "skills": [
+        "./skills/markdown-lint",
+        "./skills/agent-sandbox-env",
+        "./skills/devcontainer-sandbox-env"
+      ]
+    }
+  ]
+}
