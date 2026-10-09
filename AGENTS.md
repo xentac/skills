@@ -1,10 +1,9 @@
 # Agent Guide: xentac/skills
 
-This repo is a personal agent skills library distributed via:
+This repo is a personal agent skills library distributed two ways:
 
-```bash
-npx skills add xentac/skills
-```
+- as a Claude Code plugin marketplace (`.claude-plugin/marketplace.json`, marketplace name `xentac`), where each plugin entry lists the skill directories it bundles;
+- via the `skills` CLI: `npx skills add xentac/skills`.
 
 ## Structure
 
@@ -29,7 +28,8 @@ Skills are discovered and installed by the `skills` CLI. Reference files in the 
    Skill content here.
    ```
 2. Add any reference files alongside it if the content warrants splitting.
-3. Commit and push — skills.sh auto-indexes from the public GitHub repo.
+3. Add the skill's directory to the `skills` list of a plugin entry in `.claude-plugin/marketplace.json` (or add a new plugin entry), then run `claude plugin validate .`.
+4. Commit and push — skills.sh auto-indexes from the public GitHub repo.
 
 ## Version control
 

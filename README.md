@@ -2,7 +2,28 @@
 
 Personal agent skills for use across AI coding tools (Claude Code, Cursor, Cline, etc.).
 
-## Installing
+## Installing as Claude Code plugins
+
+This repo is a Claude Code plugin marketplace named `xentac`. Skills are grouped into plugins by layer:
+
+| Plugin | Skills |
+|---|---|
+| `torn` | torn-city |
+| `tooling` | markdown-lint |
+| `sandboxes` | agent-sandbox-env, devcontainer-sandbox-env |
+
+Add a layer to a project (writes `.claude/settings.json`, which you commit):
+
+```bash
+claude plugin marketplace add xentac/skills --scope project
+claude plugin install torn@xentac --scope project
+```
+
+Plugin skills are invocable as `/torn-city` or, when that name is taken, `/torn:torn-city`.
+
+Updating: `claude plugin marketplace update xentac`, then `claude plugin update torn@xentac` in each project, or set `"autoUpdate": true` on the marketplace entry in `.claude/settings.json`. The plugin version is the git commit, so changes ship as soon as they are pushed.
+
+## Installing with the skills CLI
 
 ```bash
 npx skills add xentac/skills
