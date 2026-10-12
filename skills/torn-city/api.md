@@ -3,9 +3,9 @@
 Facts below were verified 2026-07-29 against `www.torn.com/api.html` (live,
 direct `curl`), `www.torn.com/swagger/openapi.json` (live, direct `curl`),
 a Nov-2025 Wayback snapshot of `wiki.torn.com/wiki/API`, and one empirical
-live API call. Raw snapshots live in the source repo at
-`snapshots/torn-city/2026-07-29/` (not shipped with an installed copy of
-this skill — see the Snapshots note in `SKILL.md`). Re-verify before
+live API call. Raw snapshots (including the full v2 OpenAPI spec) are at
+`snapshots/torn-city/2026-07-29/` — see the Snapshots section in
+`SKILL.md` for how to read them from an installed copy. Re-verify before
 relying on anything here for a new project — see `research-methods.md` for
 how.
 

@@ -13,10 +13,9 @@ Torn City is a long-running (since Nov 2004), continuously-evolving browser
 MMO. Both its game mechanics and its API change over patches, so treat
 specific numbers/behaviors as a snapshot in time, not a permanent fact —
 this skill records fetch dates and known drift so guidance can be checked
-against how current it actually is. See `research-methods.md` for how to
-re-verify anything here, and `../../snapshots/torn-city/` (in the source
-repo — see the note in the Snapshots section below) for dated raw copies of
-primary sources.
+against how current it actually is. Dated raw copies of primary sources are
+readable from any install — see Snapshots below. See `research-methods.md`
+for how to re-verify anything here.
 
 ## Compliance comes first
 
@@ -56,17 +55,29 @@ them paste the results back — see the AI agents section of
 
 ## Snapshots
 
-Dated raw copies of primary sources (API docs, rules text, wiki pages) live
-in the **source repo** under `snapshots/torn-city/<YYYY-MM-DD>/` — that's a
-sibling of `skills/`, not inside this skill directory. Keep it that way:
-the `skills add` CLI copies a skill directory recursively (verified against
-`skills@1.5.20` source — it only excludes `.git`, `__pycache__`,
-`__pypackages__`, and `metadata.json`), so anything placed here ships to
-every consumer on every install. Snapshots exist for git-history diffing in
-this repo, not for distribution — they're only reachable when working
-directly in the `xentac/skills` repo, not from an installed copy of this
-skill. If you're working from an installed copy and can't find
-`../../snapshots/torn-city/`, that's why — re-fetch from the live source
-instead (see `research-methods.md`). Add a new dated snapshot when you
-fetch something likely to drift and are citing it as fact — don't snapshot
-everything, just what you're relying on.
+Dated raw copies of primary sources (API docs incl. the full v2 OpenAPI
+spec, rules text, wiki pages, layout measurements) live in the `xentac/skills`
+repo under `snapshots/torn-city/<YYYY-MM-DD>/`, each with a `README.md`
+giving source, fetch method, and observed diffs. **Check these before
+re-fetching from torn.com** — look them up in this order:
+
+1. **Local:** `../../snapshots/torn-city/` relative to this skill's base
+   directory. Present in the source repo and in Claude Code plugin installs
+   (the plugin cache holds the whole repo).
+2. **GitHub:** absent in `npx skills add` installs (only this skill folder
+   is copied). The repo is public, so read them remotely:
+   - list dates: `curl -s https://api.github.com/repos/xentac/skills/contents/snapshots/torn-city | jq -r '.[].name'`
+   - list files: same URL with `/<date>` appended
+   - fetch: `curl -s https://raw.githubusercontent.com/xentac/skills/main/snapshots/torn-city/<date>/<file>`
+3. **Live source** only if no snapshot covers it or it's too stale for the
+   question — see `research-methods.md`.
+
+Use the newest date that has the file you need, and note its date when
+citing it. `api-v2-openapi.json` is ~1.2MB — query it with `jq` (e.g.
+`jq '.paths | keys'`, `jq '.paths["/user/basic"]'`) rather than
+reading it whole.
+
+Never put snapshots inside `skills/torn-city/`: the `skills add` CLI copies
+skill directories recursively with no size filter, so they'd ship to every
+consumer. To add one, see "Snapshotting for change-tracking" in
+`research-methods.md`.

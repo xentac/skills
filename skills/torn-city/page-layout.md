@@ -2,7 +2,8 @@
 
 Measured 2026-09-28 on `/factions.php` (logged in, Chrome, dark mode) by
 the user running a read-only console snippet at six window widths. Raw
-output is in `snapshots/torn-city/2026-09-28/` in the source repo. One page
+output is in `snapshots/torn-city/2026-09-28/` (see Snapshots in
+`SKILL.md`). One page
 was measured; other pages share the same outer containers but verify before
 relying on these numbers for a page with unusual structure.
 

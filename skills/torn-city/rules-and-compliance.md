@@ -6,12 +6,12 @@ etc.), but **Scripting Abuse** governs everything this skill is for,
 carries a **game ban**, and was tightened recently. Treat it as a hard
 constraint on tool design, not a footnote.
 
-Full current text: `snapshots/torn-city/2026-07-29/rules-current.md` in the
-source repo (pasted from the live site by the user, since `rules.php` is
+Full current text: `snapshots/torn-city/2026-07-29/rules-current.md`
+(pasted from the live site by the user, since `rules.php` is
 Cloudflare-gated to automated fetches — see `research-methods.md`). A prior
 version is archived at `snapshots/torn-city/2025-09-15/rules.html` for
-comparison. Both are outside this skill directory and won't be present in
-an installed copy — see the Snapshots note in `SKILL.md`.
+comparison. See the Snapshots section in `SKILL.md` for how to read them
+from an installed copy.
 
 ## The rule, and what changed
 
