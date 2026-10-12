@@ -72,7 +72,8 @@ re-fetching from torn.com** — look them up in this order:
 3. **Live source** only if no snapshot covers it or it's too stale for the
    question — see `research-methods.md`.
 
-Use the newest date that has the file you need, and note its date when
+Use the newest date that has the file you need (not every date has every
+file), and note its date when
 citing it. `api-v2-openapi.json` is ~1.2MB — query it with `jq` (e.g.
 `jq '.paths | keys'`, `jq '.paths["/user/basic"]'`) rather than
 reading it whole.

@@ -4,7 +4,8 @@ Facts below were verified 2026-07-29 against `www.torn.com/api.html` (live,
 direct `curl`), `www.torn.com/swagger/openapi.json` (live, direct `curl`),
 a Nov-2025 Wayback snapshot of `wiki.torn.com/wiki/API`, and one empirical
 live API call. Raw snapshots (including the full v2 OpenAPI spec) are at
-`snapshots/torn-city/2026-07-29/` — see the Snapshots section in
+`snapshots/torn-city/2026-07-29/`; a newer v2 spec is in
+`snapshots/torn-city/2026-10-12/` — see the Snapshots section in
 `SKILL.md` for how to read them from an installed copy. Re-verify before
 relying on anything here for a new project — see `research-methods.md` for
 how.
@@ -118,6 +119,12 @@ in with successes.
 | 16   | Access level of key is insufficient for the requested selection                          |
 | 17   | Backend error, retry                                                                     |
 | 18   | API key paused by owner                                                                  |
+
+That table is v1's list. The v2 spec defines more codes (19–33 as of
+2026-10-12): v1/v2-only selection (22/23), temporarily closed (24), missing
+Crimes/OC 2.0 migration (19/27), and others. For the authoritative list, read
+the `Error*` schemas in the newest `api-v2-openapi.json` snapshot:
+`jq -r '.components.schemas|to_entries[]|select(.key|startswith("Error"))|"\(.value.properties.code.enum[0]) \(.key)"'`.
 
 ## Not every API change is intentional — some are bug fixes, some are bugs
 
