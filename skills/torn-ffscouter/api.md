@@ -162,10 +162,10 @@ Query `spec.json` for details before using these.
 - **Activity** (premium) — time-bucketed online activity for a player or
   faction, from FF Scouter's scanners. Only factions in roughly the top
   1,000 are tracked automatically.
-- **Hit Calling** (premium) — faction target claim queue. FF Scouter V2's
-  public design notes (`CONTEXT.md` in `xentac/ffscouter`) describe it as
-  being replaced by a "dibs" system; check the changelog before building
-  on it.
+- **Hit Calling** (premium) — faction target claim queue. A "dibs" system
+  intended to replace it is in design (not finalized as of 2026-10-12, per
+  its author); it will probably ship in Torn War Stuff Enhanced rather than
+  FF Scouter. Check the changelog before building on Hit Calling.
 - **Losses** — marketplace for buying and selling losses: buyer orders
   (with a 14-character order secret), seller contracts and claims.
 - **Notes** — personal, faction, and team notes on players and factions.
