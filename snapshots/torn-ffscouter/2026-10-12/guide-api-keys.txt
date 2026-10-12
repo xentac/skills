@@ -1,0 +1,77 @@
+Torn API keys: levels and safety
+A concise guide for players who use spreadsheets, websites, scripts, or bots that connect to Torn’s official API.
+Before you share any key
+Giving someone your API key does not let them log into your account.
+It is not your password, and the API is designed as a read-only way to fetch information Torn exposes for that key’s permission level.
+Depending on the key’s access level, someone can still learn a lot about your in-game activity
+(timing, money on hand, private stats, messages, logs, and more at higher levels). Treat keys like sensitive information: only share with people and services you trust.
+If you are unsure whether a tool or a permission level is appropriate, check with Torn staff or stick to the minimum access a tool truly needs (custom keys help with that).
+At a glance
+The Torn API is a supported, read-only channel: it fetches data when a program requests it; it does not perform in-game actions for the key holder.
+Your key does not contain your login details. Using two-factor authentication (2FA) on your Torn account remains important for account security in general.
+Higher preset levels include everything lower levels can see, plus more private selections (see each level below).
+Deleting a key in Torn preferences immediately revokes access for anyone who had that key.
+Torn documents a typical limit of about 100 API requests per minute per player across all of your keys combined; heavy or abusive use can trigger temporary blocks; legitimate tools should request only what they need.
+You can review how keys were used (including comments some tools attach to requests) via Torn’s key usage features; if something looks wrong, remove the key and contact staff if needed.
+What API keys are for
+Many community tools use your key so they can show your live stats, inventory, travel timers, faction dashboards, stock helpers, and similar features, usually the same kind of information you could look up in-game yourself, but pulled automatically so the tool stays up to date.
+The trade-off is whoever holds the key can request whatever that key is allowed to see, as often as the rate limits allow. That is why matching the key level to the tool matters.
+Faction API Access (important)
+If your faction position includes Faction API Access, some key levels can expose extra faction-wide information (for example armory-related data, organized crimes, upgrades, or broad activity-style feeds; details depend on Torn’s current API selections).
+That means a key you thought was “only about you” might still affect your faction’s privacy in competitive situations (for example war). When in doubt, ask your leadership before sharing keys tied to faction permissions.
+API key levels (presets)
+Torn offers preset access levels; a separate Custom option lets you pick specific permissions. Exact field lists change as Torn updates the game; always verify on the official documentation links at the bottom of this page.
+Public
+Typical risk to you as the key owner: Low (mostly public profile-style data).
+In plain words: Mostly information that is already public on profiles: profile fields, personal stats as shown on profiles, display case contents, and similar “anyone can look this up” style data.
+Why a tool might ask: Research, leaderboards, public dashboards, or data projects that do not need your private timers or bank details.
+Practical downside: Shared keys still consume your API quota if used heavily; if a public key is hammered, you can delete it and make a fresh one.
+Minimal Access
+Typical risk to you as the key owner: Medium (timing and activity signals).
+In plain words: Adds more personal, timing-sensitive signals: travel status, cooldowns, work stats, merits, job points, drug/med timers, inventory-style helpers, and similar “icon bar” class information.
+Why a tool might ask: Reminders (travel, energy, education), inventory managers, planners, and lightweight trackers.
+What can go wrong: Bad actors may try to time interactions around your travel landing, bank timers, or other cooldown edges; in war, opponents may care about activity patterns. Combine with the Faction API Access note above when relevant.
+Limited Access
+Typical risk to you as the key owner: High (private gameplay and economy signals).
+In plain words: Unlocks a large set of private selections such as events, battle stats, networth, money on hand, reports, stocks-related data, attacks, and more, far beyond “minimal” despite the name.
+Why a tool might ask: Battle stat trackers, attack logs, stock helpers, torn.report-style analytics, and advanced dashboards.
+What can go wrong: Sensitive information can enable scams, pressure, or in-game harassment; high-value targets may be easier to mug if cash timing leaks. Again, check faction exposure if you have Faction API Access.
+Full Access
+Typical risk to you as the key owner: Very high (adds detailed personal logs).
+In plain words: Everything in Limited Access, plus access to your logs selections where Torn exposes them for the API, essentially a deep timeline of many actions.
+Why a tool might ask: Rich history features (casino, trades, market activity, torn.report-style deep dives) that need log-backed reconstruction.
+What can go wrong: Logs are extremely revealing; only give Full Access to services you trust and whose purpose matches what they claim.
+Custom keys
+Typical risk: Depends on the boxes you tick (can be safer than presets when used carefully).
+In plain words: You choose exactly which API selections the key may use, down to the minimum a tool needs.
+Why use them: Best match between utility and exposure; easier to reason about “what is shared” than a broad preset.
+Caveat: Misconfigured custom keys can still be too powerful if you grant selections you do not understand; when unsure, ask the tool author which selections are required and cross-check the official selection table.
+How to stay safe
+Review keys regularly in Torn:
+API preferences on torn.com.
+Name each key after the tool or site that uses it so “Recent usage” is easy to audit.
+Prefer Custom keys when a developer documents the exact selections; avoid handing out Limited or Full “just because it is easier.”
+Remember Torn’s documented cap of 25 keys per account total; plan keys intentionally.
+If usage looks suspicious (wrong selections, high frequency, odd comments), delete the key first, then reassess the tool and contact Torn staff if appropriate.
+Never share your Torn password. Legitimate API tools should only ever need a key, not your login.
+For broader account security (passwords, 2FA, backups, and privacy), see the
+Account Safety guide.
+Official documentation and community sources
+Torn API documentation
+- access levels, selections, limits, Terms of Service expectations for tool authors.
+Torn API Swagger UI
+- interactive reference for endpoints and parameters.
+Further reading (Torn Forums):
+For a longer, more thorough player-written walkthrough of API keys, risks, and access levels, see
+Omanpx’s forum thread on API key usage and safety
+(opens in a new tab). This FFScouter page is only a short summary; Omanpx’s post goes into more detail and examples.
+About third-party tools and ToS: Torn expects services that collect or store keys/data to clearly disclose basics such as whether data is stored, who can see it, why it is used, how the key is stored, and which access level or custom selections are required. If a tool cannot explain that in plain language, treat that as a red flag, and see the official ToS section in the
+Torn API documentation
+for the authoritative wording.
+Disclaimer
+This page is a short community-oriented summary published on FFScouter to help players reason about risk. It is not official guidance from Torn staff. Game mechanics and API permissions change over time; always confirm details on Torn’s own documentation before making security-sensitive decisions.
+About the author
+About the Author
+My name is
+Glasnost [1844049],
+and I've been on Torn since 2006. Although I spend much of my time on data projects and running tools like FFScouter, I am also just another player. Feel free to pop me a message if you're a bit lost; I may not always be able to help, but I can usually point you in the right direction if I can't help you.

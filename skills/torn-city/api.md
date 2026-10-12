@@ -170,10 +170,8 @@ stats/cooldowns" ground.
 - **FFScouter** (`ffscouter.com`) — estimates an opponent's battle stats
   from the Fair Fight score Torn's API exposes, then overlays an FF/Est
   value across profile pages, faction lists, ranked war pages, attack
-  pages, and more. Free tier plus a premium tier (Flight Tracker, Activity
-  Tracker). This is the kind of tool that's squarely "derive a number from
-  public API data and display it inline" — a good reference point for what
-  a compliant, useful Torn tool looks like.
+  pages, and more. Free tier plus a premium tier. Its public API, developer
+  terms, and userscript have their own skill: **`torn-ffscouter`**.
 - **torn.report** — reporting/tracking site for Crimes 2.0, OCs, energy,
   and event-based logs (Trick or Treat, Looting, Mugging, City Finds),
   exportable as CSV/JSON. Notably runs entirely client-side (static site,

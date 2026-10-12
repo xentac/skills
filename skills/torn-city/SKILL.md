@@ -51,7 +51,8 @@ them paste the results back — see the AI agents section of
 - **Torn's rules in general**, not just scripting →
   `rules-and-compliance.md`
 - **Third-party tool ecosystem** (what's already out there, described
-  neutrally — not tied to any particular developer) → `api.md`
+  neutrally — not tied to any particular developer) → `api.md`. Services
+  with their own skill: FF Scouter → `torn-ffscouter`
 
 ## Snapshots
 

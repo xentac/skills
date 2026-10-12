@@ -1,0 +1,12 @@
+# file	kind	url — fetched by scripts/snapshot.sh. Data policies (home-page modal, /claim-bounties)
+# aren't snapshotted: tools must link the live versions, and the guidance says they change.
+spec.yaml	raw	https://ffscouter.com/openapi/spec.yaml
+spec.json	yaml-to-json	https://ffscouter.com/openapi/spec.yaml
+guidance.txt	html-text	https://ffscouter.com/api-docs/guidance
+changelog.txt	html-text	https://ffscouter.com/api-docs/changelog
+guide-api-keys.txt	html-text	https://ffscouter.com/guides/api-keys
+guide-fair-fight-explained.txt	html-text	https://ffscouter.com/guides/fair-fight-explained
+guide-battle-stats.txt	html-text	https://ffscouter.com/guides/battle-stats
+guide-bounty-board.txt	html-text	https://ffscouter.com/guides/bounty-board
+faq.txt	html-text	https://ffscouter.com/faq
+ff-scouter-v2.meta.js	userscript-header	https://raw.githubusercontent.com/xentac/ffscouter/release-standard/base.user.js

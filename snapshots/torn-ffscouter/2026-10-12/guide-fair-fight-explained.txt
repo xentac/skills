@@ -1,0 +1,137 @@
+Fair Fight Explained
+What Fair Fight means in Torn, how Battle Stat Score turns four stats into one number, and how FFScouter uses that math to estimate opponents, with worked examples and practical tips for wars and chains.
+On this page
+What is Fair Fight?
+Battle Stat Score (BSS)
+The Fair Fight formula
+How FFScouter uses this
+Reading FF on FFScouter
+Wars and chains
+What FF does not include
+Limits and premium
+What is Fair Fight?
+In Torn, Fair Fight (FF) is a multiplier on how hard a hit was relative to the attacker. Higher FF means the defender was closer to the attacker in battle strength, so you earn more base respect on chains and better scoring on many war hits. Lower FF means you attacked someone much weaker than you, so respect and some war scoring are discounted.
+Torn documents the concept on the
+wiki (Fair fights).
+After each hit, the faction chain log and attack history show the FF value Torn calculated for that attack.
+Faction chain log: Fair Fight and per-hit respect. Torn displays FF capped at 3.00 on many in-game views.
+Battle Stat Score (BSS)
+Before Fair Fight, Torn reduces your four battle stats to a single number called Battle Stat Score (BSS). FFScouter uses the same definition as Torn’s battle-stat API: the sum of the square root of each stat, rounded to a whole number.
+Worked example
+One player’s stats, the square root of each, and the resulting BSS:
+Stat
+Raw value
+Square root (rounded)
+Strength
+506,944
+712
+Defense
+299,209
+547
+Dexterity
+410,881
+641
+Speed
+698,896
+836
+Total (sum of raw stats)
+1,915,930
+-
+Battle Stat Score (712 + 547 + 641 + 836)
+2,736
+Because BSS uses square roots, one stat far above the rest (sometimes called stat whoring) is only partly reflected. There is no exact conversion from BSS back to a precise total stat sum. FFScouter’s bs_estimate on profiles and the API is a convenience guess, not a perfect inverse.
+Example: For BSS 2,736, FFScouter’s middle total-stat estimate is about 1,946,377 (heuristic from the public score). Use it for ballpark comparisons only.
+The Fair Fight formula
+Given the attacker’s BSS and the defender’s BSS, Fair Fight is:
+FF starts at 1 when the defender is vastly weaker and rises as the defender’s BSS approaches the attacker’s. FFScouter rounds displayed FF to two decimal places, matching the API.
+Live calculator
+Enter two players using either BSS directly or raw battlestats. Results update instantly and show both attack directions.
+Player A
+BSS
+Battlestats
+BSS
+Strength
+Defense
+Dexterity
+Speed
+Using battlestats mode. Enter all four stats as non-negative numbers.
+Player B
+BSS
+Battlestats
+BSS
+Strength
+Defense
+Dexterity
+Speed
+Using battlestats mode. Enter all four stats as non-negative numbers.
+Results
+Calculated FF uses full math. Torn-capped FF mirrors in-game cap at 3.00.
+Player A attacks Player B
+Calculated FF: -
+Torn-capped FF: -
+Player B attacks Player A
+Calculated FF: -
+Torn-capped FF: -
+Player A BSS used: -
+Player B BSS used: -
+Enter valid values for both players to calculate FF in both directions.
+Worked example: calculate FF from two BSS values
+You attack someone with BSS 4,000. Their BSS is 2,000.
+Ratio = 2,000 ÷ 4,000 = 0.5
+FF = 1 + (8 ÷ 3) × 0.5 = 1 + 1.333… ≈ 2.33
+Worked example: estimate defender BSS from a hit
+You know your own BSS (4,000) and Torn reported FF 2.50 on the attack. Rearrange:
+BSSdefender = (3 ÷ 8) × (2.50 − 1) × 4,000 = 0.375 × 1.5 × 4,000 = 2,250
+That is exactly how FFScouter learns opponents’ public BSS from volunteer attack logs when you are the attacker.
+How FFScouter uses this
+When you register with an API key, FFScouter pulls your battle stats and attack history. Your stats become bss_private (this isn't shared with anyone else). Each qualifying attack includes a Fair Fight value; combined with your BSS, FFScouter estimates each opponent’s bss_public and stores it in a shared pool other players can query on Player View, Target Finder, and the JSON API.
+To improve the pool, FFScouter only learns from attacks where Torn’s reported FF is strictly between about 1.05 and 3.00 (hits showing exactly 1.00 or 3.00 are skipped), the attack is recent enough, finished cleanly, and not interrupted. Those rules mirror Torn’s display cap and keep bad data out of the estimator.
+For anyone else looking you up, FFScouter computes calculated FF from your public BSS and theirs using the formula above. That value can exceed 3.00 when the true gap is huge, even though Torn’s chain UI often caps at 3.00.
+More background on privacy, volunteers, and accuracy:
+About FFScouter.
+Reading FF on FFScouter
+Tools such as Target Finder translate calculated FF into a short difficulty label. Thresholds:
+1–2
+2–3.5
+3.5–4.5
+>4.5
+3.66
+Equal Battle Stat Score To You
+1.0
+5.0
+Calculated FF cannot fall below 1; values at or below 1 are not possible in practice.
+Easy: FF ≤ 2
+Moderately difficult: FF ≤ 3.5
+Difficult: FF ≤ 4.5
+May be impossible: FF > 4.5
+Labels use FFScouter’s calculated FF, not always the capped number shown in Torn’s chain log.
+Wars and chains
+Ranked wars
+During a war, most factions want hits at FF 2 or higher when possible so each attack contributes more war score. Farming far below your range steals points from teammates who need those targets. Your leadership may set stricter rules; use FFScouter to stay in range before you commit energy.
+Chains and events
+On chains, higher Fair Fight raises base respect per hit. During chaining events (for example Halloween), keeping a high average FF across the chain can dramatically increase respect for the same number of hits compared with farming weak targets.
+During busy events, use Target Finder with Not in Hosp List to pick up targets who are out of hospital and in your FF range. Pair it with your faction’s chain discipline.
+Broader war and chain strategy:
+War & Chaining guide.
+What FF and BSS do not include
+Fair Fight and BSS are based only on the four battle stats through the square-root sum. They do not reflect temporary or situational power, including:
+Grenades, weapons, and armor you equip for one fight
+Books, education, and other long-term upgrades not already in your battle stats
+Job perks, company specials, and faction bonuses
+Drugs, blood bags, medical cooldowns, or other combat consumables
+Two players with the same BSS can still feel very different in a live fight. Use FF as a range guide, not a guarantee of outcome.
+Limits and premium
+The FF-based public model works well for the vast majority of players, but it has known limits:
+Torn caps displayed FF at 3.00, which blocks learning from many hits on very weak or very strong targets.
+Extreme stat imbalance (stat whoring) makes BSS a rough proxy for true total stats.
+Some top battle-stat players always report FF 3.00 in logs, so the reverse formula rarely applies to them.
+Generally, the math breaks down above about 20 billion total battle stats, where gaps are huge and public FF alone cannot pin down opponents reliably.
+FFScouter Premium adds other data sources so estimates stay useful where Fair Fight alone hits a ceiling, as well as providing other tools like the flight tracker, stat distribution breakdowns and faction tools. Basic public estimates remain free for everyone.
+Want deeper accuracy on high-stat targets? See
+premium features
+and how they combine with the public pool.
+About the author
+About the Author
+My name is
+Glasnost [1844049],
+and I've been on Torn since 2006. Although I spend much of my time on data projects and running tools like FFScouter, I am also just another player. Feel free to pop me a message if you're a bit lost; I may not always be able to help, but I can usually point you in the right direction if I can't help you.

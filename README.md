@@ -8,7 +8,7 @@ This repo is a Claude Code plugin marketplace named `xentac`. Skills are grouped
 
 | Plugin | Skills |
 |---|---|
-| `torn` | torn-city |
+| `torn` | torn-city, torn-ffscouter |
 | `tooling` | markdown-lint |
 | `sandboxes` | agent-sandbox-env, devcontainer-sandbox-env |
 

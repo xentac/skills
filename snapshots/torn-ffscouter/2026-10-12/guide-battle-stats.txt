@@ -1,0 +1,60 @@
+Battle Stats
+A cleaner walkthrough of Torn battle stats, with practical weight examples, a visual trend graph, and a live calculator for hit chance and damage mitigation.
+On this page
+How battles resolve
+Speed vs Dexterity
+Speed vs Dexterity graph
+Speed vs Dexterity calculator
+Defense vs Strength
+Defense vs Strength graph
+Defense vs Strength calculator
+Further Reading
+How battles resolve
+In simple terms, each turn has two core checks:
+Can you land the hit? This is where Speed and Dexterity matter.
+How much damage gets through? This is where Strength and Defense matter.
+The two matchups are separate. You can have strong hit chance but poor damage conversion, or the reverse.
+Source and caveat:
+Torn Wiki: Battle Stats.
+Speed vs Dexterity is published as an approximation, so treat these estimates as planning guidance.
+Speed vs Dexterity
+This matchup controls hit chance. More Speed improves consistency, but each extra block adds less percentage than earlier gains.
+The calculator below converts your matchup into an equivalent “Speed vs 10,000,000 Dexterity” point, then reads the wiki curve.
+Example: if your Speed equals your target's Dexterity, the equivalent point is 10,000,000 and the curve sits around 50%.
+Speed vs Dexterity graph
+X axis is equivalent Speed on a log scale. Y axis is estimated hit chance. Hover a point to see Speed vs Dexterity values.
+Speed vs Dexterity calculator
+Your Speed
+Opponent Dexterity
+Estimated hit chance
+50.00%
+Defense vs Strength
+This matchup controls how much incoming damage you reduce. Higher Defense cuts more damage, but the same diminishing-return pattern applies.
+The calculator converts your matchup into an equivalent “Defense vs 10,000,000 Strength” point and reads the wiki mitigation curve.
+Defense vs Strength graph
+X axis is equivalent Defense on a log scale. Y axis is estimated mitigation. Hover a point to see Defense vs Strength values.
+Defense vs Strength calculator
+Your Defense
+Opponent Strength
+Estimated mitigation
+50.00%
+Estimated damage that still gets through
+50.00%
+This is 100% - mitigation.
+Further Reading
+Gym & Stats Training Like a Pro [2026]
+by
+MightyGoober [812478]
+Fight better than a top 100 player
+by
+mug [553318]
+Happy Jumping
+(FFScouter guide)
+Euph's Guide to Becoming Elite in Torn
+by
+Euphoria [1443076]
+About the author
+About the Author
+My name is
+Glasnost [1844049],
+and I've been on Torn since 2006. Although I spend much of my time on data projects and running tools like FFScouter, I am also just another player. Feel free to pop me a message if you're a bit lost; I may not always be able to help, but I can usually point you in the right direction if I can't help you.

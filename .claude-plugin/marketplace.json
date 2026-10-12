@@ -10,9 +10,10 @@
       "name": "torn",
       "source": "./",
       "strict": false,
-      "description": "Torn City game knowledge: API, mechanics, rules compliance, page layout.",
+      "description": "Torn City game knowledge: API, mechanics, rules compliance, page layout; plus third-party Torn services (FF Scouter).",
       "skills": [
-        "./skills/torn-city"
+        "./skills/torn-city",
+        "./skills/torn-ffscouter"
       ]
     },
     {

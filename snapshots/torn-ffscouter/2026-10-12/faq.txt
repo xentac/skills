@@ -1,0 +1,58 @@
+FAQ
+Quick answers about how FFScouter works. Jump to a question below or scroll through the full list.
+Questions
+How does FFScouter know my stats?
+My profile shows my stats as being old/inaccurate?
+How accurate is FFScouter?
+Who owns FFScouter?
+Do you have a Discord server?
+I keep getting error code 6 “Please sign up at ffscouter.com”?
+Where do I find the settings using the Weav3r/Xentac script?
+Does FFScouter work with Kiwi browser?
+Can I be excluded from people seeing my stats or from Target Finder?
+Can I use FFScouter’s API in my own project?
+Activity of a particular user/faction doesn’t seem to be tracked?
+What is the FFScouter Bounty Board?
+How do I place a bounty?
+How do I claim a bounty?
+How does FFScouter know my stats?
+FFScouter uses attack data to estimate the stats of players on Torn. Therefore, estimates of your stats (as shown on your own profile) are from when a user of FFScouter has attacked you (or you attacked them), and this triggered an estimate update. Public stat data is never from private stat data provided when signing up.
+My profile shows my stats as being old/inaccurate?
+When you view your own profile, you see it as others would see it. Therefore, if the stat estimate on your page is old, it is because another player hasn’t attacked you (or the attack criteria isn’t met) and so the value hasn’t been updated in a while. When using FFScouter, your own private stat data is frequently checked and kept up to date, if this was to become outdated then FFScouter would not work for you and will return an error.
+How accurate is FFScouter?
+Generally, very accurate. This is discussed in more detail on our
+About page (see
+Accuracy compared to alternatives).
+However, no tool is 100% accurate nor can it be; be more cautious with estimates over 28 days old, or brand new players, as both have a higher likelihood to be inaccurate.
+Who owns FFScouter?
+Glasnost [1844049].
+Do you have a Discord server?
+Yes, join here:
+https://discord.gg/Gzr7Rb3Y5f
+I keep getting error code 6 “Please sign up at ffscouter.com”?
+First, ensure you have submitted the API keys you are using with the script on the
+ffscouter.com homepage.
+You should see a green success banner at the top of the page when completed. Once this is done, it may take a minute or two to begin working. If it continues not to work, try restarting your browser. Remember you need to register each individual key you plan on using. If you keep having issues,
+join Discord
+and ask in #ffscouter-help, specifying what device you are using (for example laptop, TornPDA, or other).
+Where do I find the settings using the Weav3r/Xentac script?
+Visit your own Torn profile page; the settings should appear above the “Medals” section of your profile.
+Does FFScouter work with Kiwi browser?
+Some users have been able to get it working on Kiwi browser, but this is unsupported.
+Can I be excluded from people seeing my stats or from Target Finder?
+No, not even the developer of FFScouter is excluded from these lists.
+Can I use FFScouter’s API in my own project?
+Of course, no need to ask permission; it is great seeing other tools integrate. Once your project is released, feel free to message
+Glasnost
+about it, as a list is kept of tools that work with FFScouter.
+Activity of a particular user/faction doesn’t seem to be tracked?
+Activity tracking is a high-demand area of the tool, and it is impossible to track every single user. Users in the top 1,000 factions are tracked automatically. Therefore, users not in a faction or in a lower-ranked faction may get missed.
+What is the FFScouter Bounty Board?
+The Bounty Board lets buyers pay for confirmed hospitalizations of a tracked player or faction, and lets sellers earn cash by claiming those bounties. Buyers stay anonymous, and every hit is verified from the seller’s Torn attack log before it is paid. See
+the Bounty Board guide for the full flow.
+How do I place a bounty?
+Open Place Bounties, pick the player or faction, set the reward per hit and the number of hits, then send the quoted Xanax to
+Glasnost [1844049]
+with the exact bounty:<reference> message. Once fully paid, the bounty goes live and the private status link tracks every confirmed hit.
+How do I claim a bounty?
+Open Claim Bounties, accept the data policy, hospitalize a listed target, and press Claim Completed Hit right after the attack. Only the finishing Hospitalized hit counts. Once the attack log is verified, the reward is batched and paid by an FFScouter provider.

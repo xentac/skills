@@ -1,0 +1,33 @@
+Bounty Board
+Pay for confirmed hospitalizations of a Torn player or faction, or earn cash by claiming bounties yourself. Both sides in a few simple steps.
+The FFScouter Bounty Board lets you pay for confirmed hospitalizations of a Torn player or faction, or earn cash by claiming those bounties yourself. Buyers stay anonymous and every hit is verified from the seller's Torn attack log before it is paid.
+Buying: Place Bounties. Selling: Claim Bounties. Payment moves as Xanax (item 206), and seller payouts arrive through the same provider system as the other FFScouter services.
+On this page
+Place a bounty
+Claim a bounty
+Rules to know
+Place a bounty
+Open Place Bounties and follow these steps.
+Enter the target: a player or a whole faction. The target must already be tracked by FFScouter, so search for the exact name and pick them from the suggestions.
+Set the reward per hit and the number of hits. The fee tier improves on larger orders, and the page shows the exact total before you commit.
+Create the order, then send the exact Xanax amount to Glasnost [1844049] with the exact bounty:<reference> message shown on the order page. Send it in one go.
+Once fully paid, the bounty goes live to sellers. Keep the private status link, it is the only way to track and manage the order.
+You are notified when every hit is delivered. Extra or late payments are refunded automatically.
+Claim a bounty
+Open Claim Bounties and follow these steps.
+Log in with your FFScouter account and accept the Bounty Board Data Policy. Your registered API key is used to confirm your hits, as described in the policy.
+Pick a target from the board. Faction bounties share one pool of hits across every member.
+Hospitalize the target. Only the finishing Hospitalized hit counts, assists do not.
+Press Claim Completed Hit right after the attack. FFScouter verifies the hit using the API, then credits it.
+Get paid. Credited hits are batched and sent by FFScouter providers with a BB- reference. Read the API Keys guide for key safety, and keep the key active until the payout arrives.
+Rules to know
+Bounties are anonymous. Buyers are never identified to targets or sellers, and sellers are only shown to the buyer through the private status link.
+You cannot claim a bounty you placed or are the target of.
+A bounty only counts attacks that start after it is fully paid and live.
+Listings disappear when a buyer cancels. Attacks made just before cancellation can still be claimed for a few minutes.
+More questions? See the FAQ or the Selling Losses guide for the equivalent loss-selling flow.
+About the author
+About the Author
+My name is
+Glasnost [1844049],
+and I've been on Torn since 2006. Although I spend much of my time on data projects and running tools like FFScouter, I am also just another player. Feel free to pop me a message if you're a bit lost; I may not always be able to help, but I can usually point you in the right direction if I can't help you.
