@@ -140,6 +140,19 @@ method, and any diff observed against the previous snapshot. See
 everything — just things you're citing as fact, so a future check can
 confirm it's still true.
 
+**Use `scripts/snapshot.sh torn-city`** (repo-only; not in installs) for
+anything directly fetchable — the sources it tracks are listed in
+`snapshots/torn-city/sources.tsv`. It stores only files that changed since
+their last stored copy, bumps `last_checked` in `index.tsv` for the rest,
+and writes a README skeleton with the files table and a mechanical spec
+diff (version, added/removed paths); you write the narrative. For a manual
+snapshot (Cloudflare-gated pages, console measurements, pasted rules text),
+save it and its README as above, then run
+`scripts/snapshot.sh --record torn-city <file> <date> [last_checked] [version] [last_modified]`
+so `index.tsv` stays the single place to look a file up. Re-checking a
+manual source and finding it unchanged is also worth recording — pass the
+existing `stored_in` with today as `last_checked`.
+
 **Commit snapshot files raw — don't gzip them first.** Tested empirically
 (2026-07-29): two simulated snapshots of the same ~1.2MB JSON file with ~1%
 line drift between them, packed by git, came to 90,659 bytes committed raw

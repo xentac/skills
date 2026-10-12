@@ -59,22 +59,27 @@ Dated raw copies of primary sources (API docs incl. the full v2 OpenAPI
 spec, rules text, wiki pages, layout measurements) live in the `xentac/skills`
 repo under `snapshots/torn-city/<YYYY-MM-DD>/`, each with a `README.md`
 giving source, fetch method, and observed diffs. **Check these before
-re-fetching from torn.com** — look them up in this order:
+re-fetching from torn.com**.
 
-1. **Local:** `../../snapshots/torn-city/` relative to this skill's base
-   directory. Present in the source repo and in Claude Code plugin installs
-   (the plugin cache holds the whole repo).
+Start from `index.tsv`, which has one row per file: `stored_in` (the dated
+directory holding its newest copy — unchanged files aren't re-stored, so
+don't guess from the newest directory), `last_checked` (when it was last
+confirmed unchanged upstream), `version` (spec version, where there is one),
+and the upstream `Last-Modified`. Read it, then the file, in this order:
+
+1. **Local:** `../../snapshots/torn-city/index.tsv`, then
+   `../../snapshots/torn-city/<stored_in>/<file>`, relative to this skill's
+   base directory. Present in the source repo and in Claude Code plugin
+   installs (the plugin cache holds the whole repo).
 2. **GitHub:** absent in `npx skills add` installs (only this skill folder
    is copied). The repo is public, so read them remotely:
-   - list dates: `curl -s https://api.github.com/repos/xentac/skills/contents/snapshots/torn-city | jq -r '.[].name'`
-   - list files: same URL with `/<date>` appended
-   - fetch: `curl -s https://raw.githubusercontent.com/xentac/skills/main/snapshots/torn-city/<date>/<file>`
-3. **Live source** only if no snapshot covers it or it's too stale for the
-   question — see `research-methods.md`.
+   `curl -s https://raw.githubusercontent.com/xentac/skills/main/snapshots/torn-city/index.tsv`,
+   then the same base URL with `/<stored_in>/<file>`.
+3. **Live source** only if no snapshot covers it or `last_checked` is too
+   stale for the question — see `research-methods.md`.
 
-Use the newest date that has the file you need (not every date has every
-file), and note its date when
-citing it. `api-v2-openapi.json` is ~1.2MB — query it with `jq` (e.g.
+Cite the `stored_in` date (and `last_checked`, if newer) when citing a
+snapshot. `api-v2-openapi.json` is ~1.2MB — query it with `jq` (e.g.
 `jq '.paths | keys'`, `jq '.paths["/user/basic"]'`) rather than
 reading it whole.
 

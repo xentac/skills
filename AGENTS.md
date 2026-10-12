@@ -16,6 +16,15 @@ skills/
 
 Skills are discovered and installed by the `skills` CLI. Reference files in the skill directory are installed alongside `SKILL.md` and can be read by agents when needed.
 
+## Snapshots
+
+Dated raw copies of primary sources live at `snapshots/<skill>/<YYYY-MM-DD>/`
+(never inside `skills/`, which ships to every consumer). Each
+`snapshots/<skill>/index.tsv` records which dated directory holds each file's
+newest copy and when it was last checked. Run `scripts/snapshot.sh <skill>` to
+refresh the sources listed in `snapshots/<skill>/sources.tsv`; use `--record`
+for snapshots taken by hand.
+
 ## Adding a skill
 
 1. Create `skills/<name>/SKILL.md` with frontmatter:

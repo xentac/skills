@@ -1,0 +1,3 @@
+# file	kind	url — fetched by scripts/snapshot.sh. Cloudflare-gated pages (api.html, rules.php,
+# wiki.torn.com) can't be fetched this way; snapshot them by hand and use --record.
+api-v2-openapi.json	raw	https://www.torn.com/swagger/openapi.json
