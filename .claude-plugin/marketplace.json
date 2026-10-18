@@ -34,6 +34,16 @@
         "./skills/agent-sandbox-env",
         "./skills/devcontainer-sandbox-env"
       ]
+    },
+    {
+      "name": "workflow",
+      "source": "./",
+      "strict": false,
+      "description": "Personal workflow: park and pick up projects across breaks via an Obsidian Now note.",
+      "skills": [
+        "./skills/park",
+        "./skills/pickup"
+      ]
     }
   ]
 }

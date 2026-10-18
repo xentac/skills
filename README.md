@@ -11,6 +11,7 @@ This repo is a Claude Code plugin marketplace named `xentac`. Skills are grouped
 | `torn` | torn-city, torn-ffscouter |
 | `tooling` | markdown-lint |
 | `sandboxes` | agent-sandbox-env, devcontainer-sandbox-env |
+| `workflow` | park, pickup (install at user scope: `claude plugin install workflow@xentac --scope user`) |
 
 Add a layer to a project (writes `.claude/settings.json`, which you commit):
 
