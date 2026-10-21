@@ -71,3 +71,17 @@ If `git push` fails with an authentication error, the GitHub token needs refresh
 - Keep `SKILL.md` concise: detection/trigger conditions and routing to reference files.
 - Put detailed how-to content in named reference files (`network-policy.md`, not `details.md`).
 - When updating reference files, also make a minor touch to `SKILL.md` — the `skills` CLI hashes the whole skill folder, but `npx skills update` has a known bug (#484) where it may not detect changes; consumers should re-run `npx skills add xentac/skills -y` to update.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues on `xentac/skills`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` and `docs/adr/` at the repo root, created lazily. See `docs/agents/domain.md`.
