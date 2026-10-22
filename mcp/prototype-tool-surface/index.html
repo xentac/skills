@@ -1,0 +1,301 @@
+<title>Torn MCP Tool Surface</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Archivo+Narrow:wght@600;700&display=swap">
+<style>
+/* Layout: one reading column; a variant switch and a server switch drive the tool list below. PROTOTYPE, throwaway. */
+:root {
+  --bg: #f5f6f3; --panel: #ffffff; --fg: #1d221f; --muted: #5d665f; --line: #d6dbd4;
+  --accent: #1f6f5c; --accent-soft: #e2efe9; --warn: #9a5b00; --warn-soft: #fbf0dc; --bad: #a3302a; --bad-soft: #f8e3e1;
+  --code-bg: #eef0ec;
+  --display: "Archivo Narrow", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141816; --panel: #1b201d; --fg: #e3e8e4; --muted: #9aa59d; --line: #2e3631;
+  --accent: #6cc3a8; --accent-soft: #1e3a31; --warn: #e3b25c; --warn-soft: #3a2e17; --bad: #ec8b84; --bad-soft: #3d2120;
+  --code-bg: #111412; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141816; --panel: #1b201d; --fg: #e3e8e4; --muted: #9aa59d; --line: #2e3631;
+  --accent: #6cc3a8; --accent-soft: #1e3a31; --warn: #e3b25c; --warn-soft: #3a2e17; --bad: #ec8b84; --bad-soft: #3d2120;
+  --code-bg: #111412; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 15px/1.55 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 64px; }
+main { max-width: 920px; margin: 0 auto; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: .01em; }
+h1 { font-size: 2.1rem; line-height: 1.1; }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.1rem; font-family: var(--mono); font-weight: 500; letter-spacing: 0; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font: 600 .72rem/1 var(--body); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.stack { display: grid; gap: 12px; }
+.note { background: var(--warn-soft); color: var(--fg); border-left: 3px solid var(--warn); padding: 10px 14px; font-size: .92rem; }
+code, pre { font-family: var(--mono); font-size: .82rem; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+pre { background: var(--code-bg); margin: 0; padding: 12px 14px; overflow-x: auto; border-radius: 4px; line-height: 1.45; white-space: pre; }
+.qs { display: grid; gap: 8px; counter-reset: q; padding: 0; margin: 0; list-style: none; }
+.qs li { counter-increment: q; display: grid; grid-template-columns: 2rem 1fr; }
+.qs li::before { content: "Q" counter(q); font: 700 .95rem var(--display); color: var(--accent); }
+.switches { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); padding-block: 10px; z-index: 5; border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; flex-wrap: wrap; }
+.seg button { font: 500 .88rem var(--body); background: var(--panel); color: var(--fg); border: 0; padding: 7px 12px; cursor: pointer; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.cost { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.cost div { background: var(--panel); padding: 10px 14px; display: grid; gap: 2px; }
+.cost b { font: 700 1.5rem var(--display); font-variant-numeric: tabular-nums; }
+.cost span { font-size: .82rem; color: var(--muted); }
+.cost .bad b { color: var(--bad); } .cost .ok b { color: var(--accent); } .cost .mid b { color: var(--warn); }
+.tool { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 10px; min-width: 0; }
+.tool header { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }
+.chip { font: 600 .7rem/1 var(--body); text-transform: uppercase; letter-spacing: .07em; padding: 4px 7px; border-radius: 3px; background: var(--accent-soft); color: var(--accent); }
+.chip.gen { background: var(--warn-soft); color: var(--warn); }
+.chip.nokey { background: var(--code-bg); color: var(--muted); }
+details summary { cursor: pointer; font-size: .86rem; color: var(--muted); }
+details[open] summary { margin-bottom: 8px; }
+.cmp { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.cmp > div { min-width: 0; display: grid; gap: 6px; align-content: start; }
+.tok { font: 500 .8rem var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.lean { border: 1px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 6px; }
+footer { color: var(--muted); font-size: .85rem; }
+@media (prefers-reduced-motion: no-preference) { .seg button { transition: background .12s; } }
+</style>
+
+<main>
+  <header class="stack">
+    <span class="eyebrow">Prototype, throwaway · Wayfinder ticket “What does the tool surface look like?”</span>
+    <h1>Torn MCP Tool Surface</h1>
+    <p>Three ways to shape the tools of the Torn server and the FF Scouter server. Switch the variant and the server, and react to the tool list and the sample results. All numbers come from the snapshots of 2026-10-12 (Torn spec 6.13.8, FF Scouter spec 1.14.0).</p>
+    <ol class="qs">
+      <li>Are the tools generated from the OpenAPI specs, or hand-written for the calls that the Torn tools use?</li>
+      <li>How much of each response does a tool return?</li>
+      <li>What do the spec lookup tools look like?</li>
+    </ol>
+  </header>
+
+  <section class="stack">
+    <h2>Q1. Tool shape</h2>
+    <div class="switches">
+      <div class="seg" id="variant" role="group" aria-label="Variant"></div>
+      <div class="seg" id="server" role="group" aria-label="Server"></div>
+    </div>
+    <p id="vdesc"></p>
+    <div class="cost" id="cost"></div>
+    <div class="note" id="vnote"></div>
+    <div class="stack" id="tools"></div>
+  </section>
+
+  <section class="stack">
+    <h2>Q2. Response size</h2>
+    <p>Example: <code>faction_members</code> for a faction with 100 members. Torn returns 12 fields per member, with two nested objects. The token counts are characters divided by four.</p>
+    <div class="cmp" id="shape"></div>
+    <p>MCP results have two parts. The <code>content</code> text goes to the model. The <code>structuredContent</code> object goes to the client, and some clients also give it to the model. The question is which shape goes in each part.</p>
+  </section>
+
+  <section class="stack">
+    <h2>Q3. Spec lookup</h2>
+    <p>The lookup tools read the snapshot that ships in the package. They take no key, send no request, and never trigger the <code>/key/info</code> check. They still end with the budget line. A full <code>describe_endpoint</code> for <code>/faction/{id}/members</code>, with every schema reference resolved, is about 830 tokens. The 1.2MB spec file is about 300,000 tokens.</p>
+    <div class="stack" id="lookup"></div>
+  </section>
+
+  <section class="lean stack">
+    <span class="eyebrow">My lean, for you to accept or reject</span>
+    <p>Variant C. Five to seven hand-written Torn tools for the faction and war workflow, one generic <code>torn_request</code> for everything else, and three spec lookup tools. The default result is a compact table in <code>content</code> and the projected JSON in <code>structuredContent</code>. A <code>fields</code> argument narrows both. The full Torn response is never the default.</p>
+  </section>
+
+  <footer>Branch <code>prototype/tool-surface</code>. Not production code. Delete after the ticket closes.</footer>
+</main>
+
+<script>
+const BUDGET_TORN = "MCP's request budget remaining: 22 of 30, resets at 14:03:00 UTC (in 41 s)";
+const BUDGET_FF = "MCP's request budget remaining (get-stats): 9 of 10, resets at 14:02:47 UTC (in 28 s)";
+const RB_TORN = { limit: 30, used: 8, remaining: 22, resets_at: "2026-10-22T14:03:00Z", shared: true };
+const RB_FF = { route: "get-stats", limit: 10, used: 1, remaining: 9, api_remaining: 18, resets_at: "2026-10-22T14:02:47Z", shared: true };
+const KEY = { key: { type: "string", description: "Key label or access level (public, minimal, limited, full). Default: least-privilege key that can serve the call." } };
+
+const variants = {
+  A: {
+    label: "A. Generated",
+    desc: "One tool for each GET path in the spec, generated at build time. The tool description is the spec summary. Torn alone gives 234 tools.",
+    torn: {
+      cost: [["bad", "234", "tools"], ["bad", "~51,600", "tokens of tool list, every turn"], ["mid", "9 / ~12,300", "tools / tokens if one tool per section (user, faction, torn, …) with a selections enum"]],
+      note: "Every MCP client sends the whole tool list to the model on each turn, unless it defers tools. Claude Code defers MCP tools behind a tool search when they use much of the context. Other clients do not all do this, and some clients limit the tool count (Cursor documented 40 in 2025, not checked again). The map targets every agent, not only Claude Code.",
+      tools: [
+        { name: "torn_faction_id_members", chip: "gen", desc: "Get a list of a faction's members. Requires public access key. The 'revive_setting' value will be populated (not Unknown) if you're requesting data for your own faction…",
+          schema: { id: { type: "integer" }, striptags: { type: "string", enum: ["true", "false"] }, timestamp: { type: "string" }, ...KEY }, required: ["id"] },
+        { name: "torn_faction_id_chain", chip: "gen", desc: "Get a faction's current chain. Requires public access key.", schema: { id: { type: "integer" }, timestamp: { type: "string" }, ...KEY }, required: ["id"] },
+        { name: "torn_user", chip: "gen", desc: "Get any User selection.", schema: { selections: { type: "array", items: { enum: ["ammo", "attacks", "…71 more"] } }, id: {}, legacy: {}, limit: {}, from: {}, to: {}, sort: {}, cat: {}, stat: {}, filters: {}, striptags: {}, offset: {}, timestamp: {}, ...KEY }, note: "~2,000 tokens alone" },
+        { name: "… 231 more", chip: "gen", desc: "torn_torn (~7,200 tokens), torn_torn_territory (~6,300), torn_user_personalstats (~1,300), …" }
+      ],
+      example: null
+    },
+    ff: {
+      cost: [["mid", "24", "GET tools (14 POST routes dropped: write operations are out of scope)"], ["ok", "~2,300", "tokens of tool list"]],
+      note: "FF Scouter is small enough that generation is cheap. The cost is in descriptions: the spec summaries say nothing about attribution or Fair Fight meaning, and the generated get-stats tool takes a comma-separated string, not an array.",
+      tools: [
+        { name: "ffscouter_get_stats", chip: "gen", desc: "Get battle stat estimates for up to 205 players.", schema: { targets: { type: "string", description: "Comma-separated Torn player IDs." } }, required: ["targets"] },
+        { name: "ffscouter_get_targets", chip: "gen", desc: "Search for target candidates.", schema: { preset: {}, minlevel: {}, maxlevel: {}, inactiveonly: {}, minff: {}, maxff: {}, limit: {}, factionless: {}, elimination_teams: {} } },
+        { name: "… 22 more", chip: "gen", desc: "ffscouter_player_flights, ffscouter_activity_faction, ffscouter_hit_calling_claims, …" }
+      ]
+    }
+  },
+  B: {
+    label: "B. Generic",
+    desc: "One request tool for each server that takes a path and a query, plus spec lookup tools. The agent uses lookup first, then the request tool.",
+    torn: {
+      cost: [["ok", "5", "tools"], ["ok", "~900", "tokens of tool list"], ["mid", "2+", "tool calls for a first-time question (lookup, then request)"]],
+      note: "Cheap and complete. The agent must know or look up paths and selections, and the server cannot shape results for a known workflow.",
+      tools: [
+        { name: "torn_request", desc: "Send one GET request to the Torn API v2. Use describe_endpoint first if you do not know the path. Read-only. Returns a projection if you give fields.",
+          schema: { path: { type: "string", description: "Spec path with ids filled in, for example /faction/9356/members or /user." }, query: { type: "object", description: "Query parameters, for example {selections: [\"basic\",\"profile\"], limit: 20}. Do not pass key or comment." }, fields: { type: "array", items: { type: "string" }, description: "Dot paths to keep, for example members[].status.state." }, ...KEY }, required: ["path"] },
+        { name: "list_keys", desc: "List the configured Torn keys: label, access level, selections, owner. Never returns key values.", schema: {} },
+        { name: "list_endpoints", chip: "nokey", desc: "List spec paths, optionally under a prefix.", schema: { prefix: { type: "string" } } },
+        { name: "describe_endpoint", chip: "nokey", desc: "Describe one path: parameters, minimum access level, response fields.", schema: { path: { type: "string" } }, required: ["path"] },
+        { name: "find_field", chip: "nokey", desc: "Find the paths and selections whose response contains a field name.", schema: { name: { type: "string" } }, required: ["name"] }
+      ]
+    },
+    ff: {
+      cost: [["ok", "4", "tools"], ["ok", "~600", "tokens of tool list"]],
+      note: "Same shape. The generic tool refuses POST routes.",
+      tools: [
+        { name: "ffscouter_request", desc: "Send one GET request to the FF Scouter API. Read-only: POST routes are refused. Results name FF Scouter as the data source.", schema: { route: { type: "string", description: "For example get-stats or activity/faction." }, query: { type: "object" }, fields: { type: "array", items: { type: "string" } } }, required: ["route"] },
+        { name: "ffscouter_list_routes", chip: "nokey", desc: "List the GET routes in the bundled spec.", schema: {} },
+        { name: "ffscouter_describe_route", chip: "nokey", desc: "Describe one route: parameters, rate limit, response fields.", schema: { route: { type: "string" } }, required: ["route"] },
+        { name: "ffscouter_find_field", chip: "nokey", desc: "Find the routes whose response contains a field name.", schema: { name: { type: "string" } }, required: ["name"] }
+      ]
+    }
+  },
+  C: {
+    label: "C. Hand-written + generic",
+    desc: "Hand-written tools for the faction, war, and target workflow, the generic request tool from B for everything else, and the spec lookup tools.",
+    torn: {
+      cost: [["ok", "8", "tools"], ["ok", "~1,800", "tokens of tool list"], ["ok", "1", "tool call for the common questions"]],
+      note: "The hand-written tools carry workflow knowledge in their descriptions and shape their results. Each one maps to exactly one Torn request, so the budget cost stays visible. Adding a tool later is a code change and a release.",
+      tools: [
+        { name: "faction_members", desc: "Members of a faction with level, status, and last action. Default faction: the key owner's. Calls /faction/{id}/members (1 request).",
+          schema: { faction_id: { type: "integer" }, fields: { type: "array", items: { type: "string" }, description: "Default: id, name, level, status.state, status.until, last_action.status" }, ...KEY } },
+        { name: "faction_war_status", desc: "Current chain, ranked war, raids, and territory wars of a faction in one request. Calls /faction?selections=chain,wars&id={id} (1 request).",
+          schema: { faction_id: { type: "integer" }, ...KEY } },
+        { name: "user_profile", desc: "Profile of one player: name, level, faction, status, last action. Calls /user?selections=basic,profile&id={id} (1 request). Pass selections to read more in the same request.",
+          schema: { user_id: { type: "integer" }, selections: { type: "array", items: { type: "string" }, description: "Extra user selections, for example battlestats (needs a limited key)." }, ...KEY } },
+        { name: "torn_request", desc: "Generic request, as in variant B.", schema: { path: {}, query: {}, fields: {}, key: {} } },
+        { name: "list_keys", desc: "As in variant B.", schema: {} },
+        { name: "list_endpoints · describe_endpoint · find_field", chip: "nokey", desc: "As in variant B. See Q3 below." }
+      ],
+      example: {
+        call: `faction_members({ faction_id: 9356 })`,
+        text: `Faction 9356 members (100). Fields: id, name, level, state, until, last_action
+id,name,level,state,until,last_action
+2675763,SomePlayer,75,Okay,,Idle
+1426381,OtherPlayer,62,Hospital,14:21 UTC,Offline
+…98 more rows
+${BUDGET_TORN}`,
+        structured: { faction_id: 9356, members: [{ id: 2675763, name: "SomePlayer", level: 75, status: { state: "Okay", until: null }, last_action: { status: "Idle" } }, "…99 more"], key_used: "public", rate_budget: RB_TORN }
+      }
+    },
+    ff: {
+      cost: [["ok", "6", "tools"], ["ok", "~1,100", "tokens of tool list"]],
+      note: "ffscouter_stats takes an array of up to 205 ids, so a whole enemy faction costs one request against the get-stats budget. Every data result names FF Scouter as the source (developer terms: attribution).",
+      tools: [
+        { name: "ffscouter_stats", desc: "Battle stat estimates and Fair Fight values for up to 205 players in one request. Data from FF Scouter (ffscouter.com). Estimates, not real stats: see the torn-ffscouter skill for how far to trust them.",
+          schema: { player_ids: { type: "array", items: { type: "integer" }, maxItems: 205 }, detail: { type: "string", enum: ["summary", "full"], description: "summary (default): id, fair_fight, bs_estimate_human, last_updated, source." } }, required: ["player_ids"] },
+        { name: "ffscouter_targets", desc: "Search for target candidates by level and Fair Fight range. Data from FF Scouter.", schema: { min_ff: { type: "number" }, max_ff: { type: "number" }, min_level: { type: "integer" }, max_level: { type: "integer" }, inactive_only: { type: "boolean" }, limit: { type: "integer" } } },
+        { name: "ffscouter_request", desc: "Generic GET request, as in variant B." },
+        { name: "ffscouter_list_routes · ffscouter_describe_route · ffscouter_find_field", chip: "nokey", desc: "As in variant B." }
+      ],
+      example: {
+        call: `ffscouter_stats({ player_ids: [2675763, 1426381] })`,
+        text: `FF Scouter estimates for 2 players (source: ffscouter.com)
+id,fair_fight,bs_estimate,updated,source
+2675763,5.39,2.99b,2025-05-15,premium
+1426381,,,,no estimate
+${BUDGET_FF}`,
+        structured: { players: [{ player_id: 2675763, fair_fight: 5.39, bs_estimate_human: "2.99b", last_updated: 1747333361, source: "premium" }, { player_id: 1426381, fair_fight: null }], attribution: "Data from FF Scouter (https://ffscouter.com)", rate_budget: RB_FF }
+      }
+    }
+  }
+};
+
+const shapes = [
+  { title: "Full Torn response", tok: "~9,300 tokens", body: `{"members":[{"id":2675763,"name":"SomePlayer",
+ "position":"Member","level":75,"days_in_faction":412,
+ "is_revivable":true,"is_on_wall":false,"is_in_oc":true,
+ "has_early_discharge":false,
+ "last_action":{"status":"Idle","timestamp":1761130000,
+   "relative":"12 minutes ago"},
+ "status":{"description":"Okay","details":null,
+   "state":"Okay","color":"green","until":null},
+ "revive_setting":"Unknown"}, …99 more]}` },
+  { title: "fields projection, JSON", tok: "~2,400 tokens", body: `{"members":[{"id":2675763,"name":"SomePlayer",
+ "level":75,"status":{"state":"Okay","until":null},
+ "last_action":{"status":"Idle"}}, …99 more]}` },
+  { title: "fields projection, table", tok: "~830 tokens", body: `id,name,level,state,until,last_action
+2675763,SomePlayer,75,Okay,,Idle
+1426381,OtherPlayer,62,Hospital,14:21 UTC,Offline
+…98 more rows` }
+];
+
+const lookups = [
+  { call: `list_endpoints({ prefix: "/faction/{id}" })`, out: `10 paths under /faction/{id}:
+/faction/{id}/basic          Get a faction's basic details            public
+/faction/{id}/chain          Get a faction's current chain            public
+/faction/{id}/members        Get a list of a faction's members        public
+/faction/{id}/rankedwars     …
+Spec: Torn API v2 6.13.8 (snapshot 2026-10-12)
+${BUDGET_TORN}` },
+  { call: `describe_endpoint({ path: "/faction/{id}/members" })`, out: `GET /faction/{id}/members  (public key)
+Get a list of a faction's members. revive_setting is Unknown unless you read your own faction with faction permissions.
+Parameters: id (integer, required), striptags (true|false, default true), timestamp
+Response: members[]: id, name, position, level, days_in_faction, is_revivable,
+  is_on_wall, is_in_oc, has_early_discharge,
+  last_action{status: Online|Idle|Offline, timestamp, relative},
+  status{description, details, state, color, until, plane_image_type},
+  revive_setting
+Also reachable as: /faction?selections=members&id={id}
+Spec: Torn API v2 6.13.8 (snapshot 2026-10-12)
+${BUDGET_TORN}` },
+  { call: `find_field({ name: "is_on_wall" })`, out: `is_on_wall appears in:
+/faction/{id}/members   members[].is_on_wall   public
+/faction/members        members[].is_on_wall   public
+/faction?selections=members
+${BUDGET_TORN}` }
+];
+
+const esc = s => s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+let state = { v: "C", s: "torn" };
+try { const saved = JSON.parse(localStorage.getItem("ts-state")); if (saved && variants[saved.v]) state = saved; } catch (e) {}
+
+function seg(el, opts, key) {
+  el.innerHTML = "";
+  for (const [id, label] of opts) {
+    const b = document.createElement("button");
+    b.id = `seg-${key}-${id}`; b.textContent = label; b.setAttribute("aria-pressed", state[key] === id);
+    b.onclick = () => { state[key] = id; try { localStorage.setItem("ts-state", JSON.stringify(state)); } catch (e) {} render(); };
+    el.append(b);
+  }
+}
+function schemaText(t) {
+  if (!t.schema) return "";
+  const props = Object.fromEntries(Object.entries(t.schema).map(([k, v]) => [k, Object.keys(v).length ? v : "…"]));
+  return JSON.stringify({ type: "object", properties: props, required: t.required || [] }, null, 2);
+}
+function render() {
+  seg(document.getElementById("variant"), Object.entries(variants).map(([k, v]) => [k, v.label]), "v");
+  seg(document.getElementById("server"), [["torn", "Torn server"], ["ff", "FF Scouter server"]], "s");
+  const v = variants[state.v], d = v[state.s];
+  document.getElementById("vdesc").textContent = v.desc;
+  document.getElementById("vnote").textContent = d.note;
+  document.getElementById("cost").innerHTML = d.cost.map(([c, n, l]) => `<div class="${c}"><b>${n}</b><span>${esc(l)}</span></div>`).join("");
+  let html = d.tools.map(t => `<article class="tool"><header><h3>${esc(t.name)}</h3>${t.chip === "gen" ? '<span class="chip gen">generated</span>' : t.chip === "nokey" ? '<span class="chip nokey">no key, no request</span>' : '<span class="chip">hand-written</span>'}</header>
+    <p>${esc(t.desc)}</p>${t.schema ? `<details><summary>inputSchema${t.note ? " · " + esc(t.note) : ""}</summary><pre>${esc(schemaText(t))}</pre></details>` : ""}</article>`).join("");
+  if (d.example) html += `<article class="tool"><header><span class="eyebrow">Sample call and result</span></header><pre>${esc(d.example.call)}</pre>
+    <div class="cmp"><div><span class="eyebrow">content (text)</span><pre>${esc(d.example.text)}</pre></div><div><span class="eyebrow">structuredContent</span><pre>${esc(JSON.stringify(d.example.structured, null, 2))}</pre></div></div></article>`;
+  document.getElementById("tools").innerHTML = html;
+}
+document.getElementById("shape").innerHTML = shapes.map(s => `<div><span class="eyebrow">${esc(s.title)}</span><span class="tok">${s.tok}</span><pre>${esc(s.body)}</pre></div>`).join("");
+document.getElementById("lookup").innerHTML = lookups.map(l => `<article class="tool"><pre>${esc(l.call)}</pre><pre>${esc(l.out)}</pre></article>`).join("");
+render();
+</script>
