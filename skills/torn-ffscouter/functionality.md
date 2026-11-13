@@ -35,8 +35,8 @@ gathering. That service isn't covered by the main data policy.
 Source: `github.com/xentac/ffscouter` (TypeScript, built with Vite).
 Released builds are on branch `release-standard`, file `base.user.js`
 (beta: `release-beta`, `beta.user.js`), synced to Greasy Fork. Its metadata
-header is tracked as snapshot `ff-scouter-v2.meta.js` (v3.3 as of
-2026-10-12). It runs in Tampermonkey/Violentmonkey and inside Torn PDA, on
+header is tracked as snapshot `ff-scouter-v2.meta.js` (v3.4 as of
+2026-11-13). It runs in Tampermonkey/Violentmonkey and inside Torn PDA, on
 `https://www.torn.com/*`, calling only `ffscouter.com`.
 
 Settings live in a panel on **the user's own profile page**, above Medals.

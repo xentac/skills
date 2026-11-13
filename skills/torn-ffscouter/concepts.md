@@ -1,7 +1,7 @@
 # Fair Fight and FF Scouter's estimates
 
 From FF Scouter's "Fair Fight Explained" guide and FAQ (snapshots
-`guide-fair-fight-explained.txt`, `faq.txt`, 2026-10-12). For Torn's own
+`guide-fair-fight-explained.txt` 2026-11-13, `faq.txt` 2026-10-12). For Torn's own
 battle mechanics, see the `torn-city` skill's `game-mechanics.md`.
 
 ## Battle Stat Score (BSS)
@@ -48,7 +48,7 @@ Registered users' keys give FF Scouter their own stats (kept private as
 `bss_private`) and their attack logs. Each qualifying attack yields an
 estimate of the opponent's BSS, which goes into a shared public pool
 (`bss_public`) that anyone can query. A hit qualifies only if the logged FF
-is strictly between about 1.05 and 3.00 (exact 1.00/3.00 are skipped), and
+is at least 1.10 and below 3.00 (1.00 and 3.00 are skipped), and
 the attack is recent, completed cleanly, and wasn't interrupted. **Public
 estimates never come from anyone's private stats.**
 

@@ -1,6 +1,6 @@
 # FF Scouter API
 
-Written against spec **1.14.0** (snapshot 2026-10-12). The spec is the
+Written against spec **1.22.0** (snapshot 2026-11-13). The spec is the
 source of truth for parameters, schemas, and error codes — query
 `spec.json` with `jq` (see `SKILL.md` for where it lives and the drift
 check). This file covers what the spec doesn't say well: the rate-limit
@@ -139,7 +139,15 @@ value (paid in Xanax, item 206) — make costs and steps explicit to users.
   players are excluded from player bounties (code 99).
 - `GET bounties/orders/{token}` — order status, the only place seller
   identities appear. The token is the buyer's only credential — show it
-  to the buyer and keep it private.
+  to the buyer and keep it private. The order carries `state` (which
+  includes `pausing` and `paused`), the flags `can_cancel`, `can_pause`,
+  and `can_resume`, refund figures, and an event `history`.
+- `POST bounties/orders/{token}/cancel`, `…/pause`, `…/resume` — buyer
+  self-service, each with body `confirm: true` (since 1.17.0/1.18.0).
+  Cancel and pause have a 5-minute grace window in which hits made before
+  the request can still be credited. A cancel refunds the unused reward
+  but not the order fee. Codes 100/101/102 mean cancel/pause/resume is not
+  allowed. 10 requests/min per IP.
 
 **Seller endpoints need a registered key and Bounty Board policy consent**
 (code 86 until `POST bounties/seller/policy/accept` with
@@ -147,11 +155,16 @@ value (paid in Xanax, item 206) — make costs and steps explicit to users.
 the policy at `https://ffscouter.com/claim-bounties`):
 
 - `GET bounties/seller/board` — open bounties per target, plus the
-  seller's own claim/payout status.
+  seller's own claim/payout status. Targets carry a cached Torn `status`
+  and `status_last_checked`, refreshed every minute (null means not
+  checked yet), so you don't need to call Torn for them. Unclaimable
+  targets are left off: players in Federal jail, and players abroad and
+  inactive for more than 7 days.
 - `POST bounties/seller/claims` — after hospitalizing a target, opens a
   monitoring session: FF Scouter reads the seller's Torn attack log and
   credits Hospitalized hits from the last 24 hours against eligible
-  bounties. Only the finishing hit counts.
+  bounties. Only the finishing hit counts. Code 91 means the target is no
+  longer claimable.
 - `GET bounties/seller/claims/status` — the seller's pending claims,
   credited hits, and payouts.
 
@@ -177,3 +190,10 @@ Query `spec.json` for details before using these.
   with message `deposit` or `factiondeposit`; no withdrawals) and
   transaction history.
 - **API Keys** — `register` and `check-key`; see `developer-terms.md`.
+- **OD Insurance** (since 1.16.0) — overdose insurance bought with Xanax.
+  `od-insurance/plans` is public; `status` and `history` need a registered
+  key and return only the key owner's policies. 30 requests/min per IP.
+- **Script Metrics** (since 1.20.0) — `POST script-metrics` stores
+  self-reported telemetry (script name, version, settings, metrics) for the
+  caller's key, visible to FF Scouter staff. 5 requests/min per IP and per
+  key.

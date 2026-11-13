@@ -56,7 +56,8 @@ keys.
 - **Developer terms, key registration and required Torn key access, data
   policy links, commissions** → `developer-terms.md`
 - **Calling the API** — auth, rate limits, batching/caching, errors, and
-  detail on Player Stats, Targets, Flights, and Bounty Board; index of the
+  detail on Player Stats, Targets, Flights, and Bounty Board (incl. buyer
+  cancel and pause); index of the
   other tags → `api.md`
 - **What FF / BSS / bs_estimate mean and how far to trust them** →
   `concepts.md`
