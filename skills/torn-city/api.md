@@ -4,8 +4,9 @@ Facts below were verified 2026-07-29 against `www.torn.com/api.html` (live,
 direct `curl`), `www.torn.com/swagger/openapi.json` (live, direct `curl`),
 a Nov-2025 Wayback snapshot of `wiki.torn.com/wiki/API`, and one empirical
 live API call. Raw snapshots (including the full v2 OpenAPI spec) are at
-`snapshots/torn-city/2026-07-29/`; a newer v2 spec is in
-`snapshots/torn-city/2026-10-12/` — see the Snapshots section in
+`snapshots/torn-city/2026-07-29/`; newer v2 specs are in
+`snapshots/torn-city/2026-10-12/` and `snapshots/torn-city/2026-11-13/`,
+and the 2026-11-13 directory also has a newer copy of `api.html` — see the Snapshots section in
 `SKILL.md` for how to read them from an installed copy. Re-verify before
 relying on anything here for a new project — see `research-methods.md` for
 how.
@@ -18,7 +19,14 @@ Settings → API Keys, in-game. Five access tiers:
 - **Minimal Access**
 - **Limited Access**
 - **Full Access**
-- **Custom** — pick individual selections rather than a fixed tier
+- **Custom** — pick individual selections rather than a fixed tier. Each
+  picked selection returns the same data a regular key would get, whatever
+  access level it needs. For selections whose data differs at Limited
+  Access (e.g. battle stats in `personalstats`), the key's **Include
+  sensitive data** option decides which version it gets. Keys made before
+  that option existed keep their old permissions and show
+  `legacy_permissions: true` in `key/info` (`api.html` and v2 spec,
+  2026-11-13).
 
 A user can hold up to **25 keys** at once (raised from 10 sometime between
 Aug 2024 and Nov 2025 — the wiki changed this number without fanfare, which
@@ -50,7 +58,7 @@ wholesale:
 - v2 endpoints not yet ported just proxy through to v1's response format
   under the hood.
 - The full v2 spec is a real OpenAPI/Swagger document at
-  `https://www.torn.com/swagger/openapi.json` — 1.2MB, and its
+  `https://www.torn.com/swagger/openapi.json` — 1.4MB as of 2026-11-13, and its
   `Last-Modified` header was one day old when fetched, so it tracks live
   changes closely. This is the best primary source for "what does v2
   actually support right now" — check it directly rather than trusting a
@@ -85,10 +93,13 @@ check `response.error` on every call, regardless of status code** —
 checking `response.ok` or the status code alone will silently treat
 rate-limited/failed calls as successes.
 
-A per-IP limit is mentioned in community/forum sources (reportedly ~1,000
-calls/min) but I could not confirm a specific number in the official docs
-or the wiki text — treat that figure as unconfirmed until you find it in a
-primary source.
+There is also a per-IP limit. Since the `api.html` revision of
+2026-11-10, the docs say that services which hold many keys may be limited
+to **5,000 requests/minute per IP address**, however many keys they use.
+Spreading requests over several servers to get around it can get the
+service blocked and its owners' accounts terminated. Contact Torn staff
+if you get close to it. (Community sources earlier claimed ~1,000/min per
+IP; the official figure replaces that.)
 
 Because every error is a 200, **batch requests where the API supports it**
 (many endpoints take comma-separated IDs or bulk selections) rather than
@@ -121,7 +132,7 @@ in with successes.
 | 18   | API key paused by owner                                                                  |
 
 That table is v1's list. The v2 spec defines more codes (19–33 as of
-2026-10-12): v1/v2-only selection (22/23), temporarily closed (24), missing
+2026-11-13, unchanged since 2026-10-12): v1/v2-only selection (22/23), temporarily closed (24), missing
 Crimes/OC 2.0 migration (19/27), and others. For the authoritative list, read
 the `Error*` schemas in the newest `api-v2-openapi.json` snapshot:
 `jq -r '.components.schemas|to_entries[]|select(.key|startswith("Error"))|"\(.value.properties.code.enum[0]) \(.key)"'`.
@@ -150,6 +161,9 @@ for anyone building against it:
 - Max keys per user: 10 (Aug 2024 wiki) → 25 (Nov 2025 wiki).
 - Rate-limit wording: "per key" (Aug 2024 wiki) → "per user" (Nov 2025
   wiki, matches official docs).
+- Custom keys: the 2026-07-29 `api.html` said to treat custom keys as if
+  they were full-access keys. The 2026-11-10 revision dropped that line and
+  added the Include sensitive data option instead.
 - `staticfiles.torn.com/api.html` — confirmed (2026-07-29, after the
   sandbox network policy was updated to allow it) to be byte-identical to
   `www.torn.com/api.html`: same size, same `Last-Modified` timestamp. It's

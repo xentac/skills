@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="An introduction to Torn's API.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Torn API Docs</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon/api/512x512.png">
+    <link rel="icon" type="image/png" sizes="300x300" href="/favicon/api/300x300.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="/favicon/api/180x180.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/api/96x96.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon/api/64x64.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon/api/48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/api/32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/api/16x16.png">
+    <link rel="apple-touch-icon" href="/favicon/api/180x180.png">
+    <script src="/api/docs/js/theme.js"></script>
+    <link href="/api/docs/css/api.css" rel="stylesheet">
+</head>
+<body>
+<header class="top">
+    <a class="brand" href="#documentation"><span class="brand-mark">T</span><span>Torn API</span></a>
+    <nav class="tabs" aria-label="Sections">
+        <a class="tab docLink" href="#documentation" data-tab="documentation">Documentation</a>
+        <a class="tab demoLink" href="#demo" data-tab="demo">Try it</a>
+        <a class="tab customLink" href="#builder" data-tab="builder">Custom key builder</a>
+        <a class="tab patchLink" href="#patchNotes" data-tab="patchNotes">Patch notes</a>
+        <a class="tab tab-ext" href="https://api-playground.torn.com/" target="_blank" rel="noopener">API v2 playground</a>
+        <a class="tab tab-ext" href="https://www.torn.com/swagger.php" target="_blank" rel="noopener">API v2 Swagger</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme" title="Switch theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+</header>
+
+<main class="page">
+    <script src="/api.js"></script>
+
+    <section id="documentation" class="view">
+        <div class="docs">
+            <nav class="toc" aria-label="On this page">
+                <div class="toc-title">On this page</div>
+                <a href="#introduction">Introduction</a>
+                <a href="#potential">Potential</a>
+                <a href="#acceptable-usage">Acceptable usage</a>
+                <a href="#tos">Terms of service</a>
+                <a href="#unfair-advantage">Unfair advantage</a>
+                <a href="#logging">Logging</a>
+                <a href="#limits">Limits and blocks</a>
+                <a href="#cache">Cache</a>
+                <a href="#access-levels">Selection access levels</a>
+                <a href="#error-codes">Error codes</a>
+                <a href="#tos-examples">ToS examples</a>
+            </nav>
+            <div class="prose">
+                <div class="hero">
+                    <h1>Welcome to the Torn API</h1>
+                    <p>A read-only, fully supported way to pull data about your player, faction and company into your own tools.</p>
+                    <div class="endpoint-strip mono">
+                        <span class="ver">v1</span><span>https://api.torn.com/user/?selections=basic&amp;key=YOUR_KEY</span>
+                        <span class="ver">v2</span><span>https://api.torn.com/v2/user/basic?key=YOUR_KEY</span>
+                    </div>
+                </div>
+
+                <h2 id="introduction">Introduction</h2>
+                <p>The goal of the Torn API is to provide a fully supported and read-only method for players to pull useful
+                    information from Torn about their player, faction, or company. This can be used individually to retrieve
+                    information about your account, or you can build a website that the entire community can use to do
+                    interesting things with the data exposed via the API.</p>
+
+                <h2 id="potential">Potential</h2>
+                <p>Whether you're making a browser extension to aid factions during wartime, a mobile application to offer
+                    instant notifications, or a website to track data for graphing - the possibilities are endless - simply
+                    using the 16 character API keys. We encourage you to be creative, building features and tools that expand
+                    Torn's gameplay and enjoyment.</p>
+
+                <h2 id="acceptable-usage">Acceptable usage</h2>
+                <p>This system has been developed so that you should only ever need to request an API key from the user. All of
+                    the user's information can be obtained with just their key, there shouldn't be any requirement to ask for a
+                    name or user ID. Torn passwords should <strong>never</strong> be requested from any users, ever.</p>
+                <p>You must keep keys, and the data obtained from them, securely protected and confidential unless permitted by
+                    the key owner. By accepting other user's keys, they are placing their trust in you - do not exploit this. We
+                    will permanently ban offending applications from accessing the API at a moment's notice.</p>
+                <p>We respectfully request that you follow Torn's no-advertising policy when building websites or applications
+                    that use our API system to ensure optimal user experience, however, exceptions can be made. Please <a
+                            href="mailto:webmaster@torn.com">contact us</a> if you would like to advertise, accept voluntary
+                    real-money donations or charge users for usage.</p>
+                <p>Please make sure your scripts are optimised to retrieve only the information required for the specific
+                    request they're making. They should be retrieving as little information as possible; this will improve
+                    loading time and reduce stress on Torn's servers.</p>
+                <p>All scripts or tools must be compliant with the API Terms of Service Guidelines defined below.</p>
+
+                <h2 id="tos">API Terms of Service (ToS) Guidelines</h2>
+                <p>When creating a script, userscript, sheet, extension, API service, bot, 3rd party website or any other API tool (collectively "service"), the end user must be aware of how
+                    will their API key be used.</p>
+                <p>Here's a table with the information that is important to the end user - giving them a good idea of what to
+                    expect from the API service they're using:</p>
+                <div class="tbl-wrap wide">
+                    <table class="tbl">
+                        <thead>
+                        <tr>
+                            <th>Data Storage<span class="q">Will the data be stored for any purpose?</span></th>
+                            <th>Data Sharing<span class="q">Who can access the data besides the end user?</span></th>
+                            <th>Purpose of Use<span class="q">What is the stored data being used for?</span></th>
+                            <th>Key Storage &amp; Sharing<span class="q">Will the API key be stored securely and who can access it?</span></th>
+                            <th>Key Access Level<span class="q">What key access level or specific selections are required?</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <code>No / Only locally</code>
+                                <code>Temporary - less than a minute</code>
+                                <code>Temporary - less than a day</code>
+                                <code>Persistent - until account deletion</code>
+                                <code>Persistent - forever</code>
+                            </td>
+                            <td>
+                                <code>Nobody</code>
+                                <code>Faction</code>
+                                <code>Friends &amp; faction</code>
+                                <code>General public</code>
+                                <code>Service owners</code>
+                                <code>Service owners &amp; their customers</code>
+                            </td>
+                            <td>
+                                <code>Non malicious statistical analysis</code>
+                                <code>Public amusement</code>
+                                <code>Public community tools</code>
+                                <code>Competitive advantage [Please specify]</code>
+                                <code>Personal gain [Please specify]</code>
+                                <code>Other [Please specify]</code>
+                            </td>
+                            <td>
+                                <code>Not stored / Not shared</code>
+                                <code>Stored / Used only for automation</code>
+                                <code>Stored / Shared with the faction</code>
+                                <code>Stored / Shared with other services</code>
+                            </td>
+                            <td>
+                                <code>Public</code>
+                                <code>Minimal</code>
+                                <code>Limited</code>
+                                <code>Full</code>
+                                <code>Custom - specify selections</code>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>If the service is not storing or sharing the data or the key anywhere, it's enough to state so, otherwise ToS with the information above needs to be clearly and visibly stated in any place where user is providing their API key in the table format highlighted above.</p>
+                <p>When integrating your service with another service (opt-in), make sure there's at least a link to ToS of the service you're allowing the user to integrate with.</p>
+                <p>When integrating your service with another service (automatically), your ToS need to cover the usage of the service you're integrating with.</p>
+                <p>Using keys for purposes other than the ones described in the ToS or deceiving the end user
+                    into believing that the key is being used for a purpose other than described is prohibited and is a
+                    punishable offense.</p>
+                <p>These rules also apply to those who purchase API keys from other players.</p>
+                <p>If you're unsure how to describe your service, feel free to contact <a
+                        href="https://www.torn.com/staff.php" target="_blank" rel="noopener">Torn staff.</a></p>
+                <p>If you suspect your key was misused, you can use <a target="_blank" rel="noopener"
+                                                                       href="https://www.torn.com/swagger.php#/Key/get_key_log">'key'
+                    -> 'log'</a> selection to view &amp; monitor API key usage history.</p>
+                <p>All services must be compliant with <a href="https://www.torn.com/rules.php" target="_blank" rel="noopener">Torn's scripting rules</a>.</p>
+                <p>ToS examples can be found at the <a href="#tos-examples">bottom of this page</a>.</p>
+
+                <h2 id="unfair-advantage">Unfair advantage</h2>
+                <p>We understand that crafting an API system for Torn could give some users an unfair advantage. We want the
+                    system to expand &amp; enhance gameplay rather than giving users an advantage which makes it easier to compete
+                    against others. We have taken this into account during development, but we will be listening to feedback and
+                    making any appropriate changes that are required.</p>
+
+                <h2 id="logging">Logging</h2>
+                <p>Please be aware, we log all details and inputs of requests and make routine checks. If misuse occurs, we will
+                    permanently ban IP addresses, keys, and users from accessing the system without notice.</p>
+
+                <h2 id="limits">Automatic limits &amp; blocks</h2>
+                <h3>Key limits</h3>
+                <p>Each user can make up to 100 individual requests per minute across all of their keys, this should be more
+                    than enough for almost anything to be achievable. Multiple requests using invalid keys may result in a
+                    temporary IP ban - you must account for this by removing disabled or invalid keys upon error.</p>
+                <h3>IP limits</h3>
+                <p>Services which have accumulated a large number of keys may be subject to a different limit: 5,000 requests
+                    per minute per IP address, regardless of how many keys are used from that address.</p>
+                <p>This limit must not be bypassed by using multiple servers. Services bypassing it may be blocked without
+                    notice, and the service owners may have their accounts terminated. If you are nearing this limit, please
+                    <a href="https://www.torn.com/staff.php" target="_blank" rel="noopener">contact Torn staff</a> and let them
+                    know about your usage.</p>
+                <p>These limits may also change without notice to ensure the Torn servers remain stable.</p>
+
+                <h2 id="cache">Cache</h2>
+                <p>There are two different types of cache in the works.</p>
+                <h3>Service cache</h3>
+                <p>All API requests are cached by the service, and this cache can last up to 30 seconds. With this type of cache,
+                    two subsequent, identical requests, will return the same data.
+                    The purpose of this cache is to simply to reduce the server load because multiple tools/websites/scripts/etc. might request
+                    the same data nearly at the same time, and there's usually no need to process these requests individually.</p>
+                <p>However, this can sometimes become a nuisance, because in some cases you might need fresh information. Because of this,
+                    everyone is free to bypass this cache by using e.g. <code>timestamp</code> query parameter to make their request unique (<code>comment</code>
+                    query parameter is ignored for this) whenever they need to.</p>
+                <p>Requests which hit the service cache are not consuming the API key quota.</p>
+                <h3>Global cache</h3>
+                <p>Several selections are cached globally. This means, all users who request these selections will get the same data,
+                    regardless of the API key used or if their request is unique.
+                    This type of cache is set on the server-side, and simply cannot be bypassed.</p>
+                <p>The main purpose of this cache is to prevent the potential unfair advantage certain selections could introduce.
+                    There is only a handful of selections which are utilizing this type of cache.</p>
+                <p>Current globally cached selections are:</p>
+                <ul>
+                    <li>'market' -> 'itemmarket'</li>
+                    <li>'market' -> 'properties'</li>
+                    <li>'market' -> 'rentals'</li>
+                    <li>'company' -> 'companies'</li>
+                    <li>'user' -> 'bazaar'</li>
+                    <li>'torn' -> 'bounties'</li>
+                    <li>'user' -> 'bounties'</li>
+                </ul>
+
+                <h2 id="access-levels">Selection access levels</h2>
+                <p>API keys can have one of four different access levels, this will limit which selections they're able to
+                    access. We've assigned access level requirements to every selection, these are visible in the table
+                    below.</p>
+                <div class="levels">
+                    <span class="level lvl-public">Public</span>
+                    <span class="level lvl-minimal">Minimal Access</span>
+                    <span class="level lvl-limited">Limited Access</span>
+                    <span class="level lvl-full">Full Access</span>
+                </div>
+                <div class="wide">
+                    <div id="result"><span class="loading">Loading selections&hellip;</span></div>
+                </div>
+                <div class="footnotes">
+                    <div><span class="tag tag-v1">v1</span> This selection is only available in API v1.</div>
+                    <div><span class="tag tag-v2">v2</span> This selection is only available in API v2.</div>
+                    <div>*This selection has different access in API v1 and v2.</div>
+                </div>
+
+                <h2 id="error-codes">Error codes</h2>
+                <div class="codes">
+                    <div class="n">0</div><div><span class="t">Unknown error</span> <span class="d">Unhandled error, should not occur.</span></div>
+                    <div class="n">1</div><div><span class="t">Key is empty</span> <span class="d">Private key is empty in current request.</span></div>
+                    <div class="n">2</div><div><span class="t">Incorrect Key</span> <span class="d">Private key is wrong/incorrect format.</span></div>
+                    <div class="n">3</div><div><span class="t">Wrong type</span> <span class="d">Requesting an incorrect basic type.</span></div>
+                    <div class="n">4</div><div><span class="t">Wrong fields</span> <span class="d">Requesting incorrect selection fields.</span></div>
+                    <div class="n">5</div><div><span class="t">Too many requests</span> <span class="d">Requests are blocked for a small period of time because of too many requests per user (max 100 per minute).</span></div>
+                    <div class="n">6</div><div><span class="t">Incorrect ID</span> <span class="d">Wrong ID value.</span></div>
+                    <div class="n">7</div><div><span class="t">Incorrect ID-entity relation</span> <span class="d">A requested selection is private (For example, personal data of another user / faction).</span></div>
+                    <div class="n">8</div><div><span class="t">IP block</span> <span class="d">Current IP is banned for a small period of time because of abuse.</span></div>
+                    <div class="n">9</div><div><span class="t">API disabled</span> <span class="d">Api system is currently disabled.</span></div>
+                    <div class="n">10</div><div><span class="t">Key owner is in federal jail</span> <span class="d">Current key can't be used because owner is in federal jail.</span></div>
+                    <div class="n">11</div><div><span class="t">Key change error</span> <span class="d">You can only change your API key once every 60 seconds.</span></div>
+                    <div class="n">12</div><div><span class="t">Key read error</span> <span class="d">Error reading key from Database.</span></div>
+                    <div class="n">13</div><div><span class="t">The key is temporarily disabled due to owner inactivity</span> <span class="d">The key owner hasn't been online for more than 7 days.</span></div>
+                    <div class="n">14</div><div><span class="t">Daily read limit reached</span> <span class="d">Too many records have been pulled today by this user from our cloud services.</span></div>
+                    <div class="n">15</div><div><span class="t">Temporary error</span> <span class="d">An error code specifically for testing purposes that has no dedicated meaning.</span></div>
+                    <div class="n">16</div><div><span class="t">Access level of this key is not high enough</span> <span class="d">A selection is being called of which this key does not have permission to access.</span></div>
+                    <div class="n">17</div><div><span class="t">Backend error occurred, please try again.</span></div>
+                    <div class="n">18</div><div><span class="t">API key has been paused by the owner.</span></div>
+                    <div class="n">19</div><div><span class="t">Must be migrated to crimes 2.0.</span></div>
+                    <div class="n">20</div><div><span class="t">Race not yet finished.</span></div>
+                    <div class="n">21</div><div><span class="t">Incorrect category</span> <span class="d">Wrong cat value.</span></div>
+                    <div class="n">22</div><div><span class="t">This selection is only available in API v1.</span></div>
+                    <div class="n">23</div><div><span class="t">This selection is only available in API v2.</span></div>
+                    <div class="n">24</div><div><span class="t">Closed temporarily.</span></div>
+                    <div class="n">25</div><div><span class="t">Invalid stat requested.</span></div>
+                    <div class="n">26</div><div><span class="t">Only category or stats can be requested.</span></div>
+                    <div class="n">27</div><div><span class="t">Must be migrated to organized crimes 2.0.</span></div>
+                    <div class="n">28</div><div><span class="t">Incorrect log ID.</span></div>
+                    <div class="n">29</div><div><span class="t">Category selection is not available for interaction logs.</span></div>
+                    <div class="n">30</div><div><span class="t">File does not exist</span></div>
+                </div>
+
+                <h2 id="tos-examples">API Terms of Service Examples</h2>
+
+                <h3>Example No. 1</h3>
+                <p>Description: a 3rd party website utilizing 'user' -> 'log' selection to show detailed statistics for certain gameplay areas which stores key or data only in the user's browser.</p>
+                <p>ToS: You maintain full control of your data; everything is stored in your browser. No data is sent anywhere.</p>
+                <p>For such websites, ToS in the table format is not necessary, but might be useful to end users and could look something like this:</p>
+                <div class="tbl-wrap wide">
+                    <table class="tbl">
+                        <thead>
+                        <tr>
+                            <th>Data Storage<span class="q">Will the data be stored for any purpose?</span></th>
+                            <th>Data Sharing<span class="q">Who can access the data besides the end user?</span></th>
+                            <th>Purpose of Use<span class="q">What is the stored data being used for?</span></th>
+                            <th>Key Storage &amp; Sharing<span class="q">Will the API key be stored securely and who can access it?</span></th>
+                            <th>Key Access Level<span class="q">What key access level or specific selections are required?</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><code>Only locally</code></td>
+                            <td><code>Nobody</code></td>
+                            <td><code>Not eligible - only end user has access</code></td>
+                            <td><code>Stored locally / Not shared</code></td>
+                            <td><code>Full Access</code></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Example No. 2</h3>
+                <p>Description: a 3rd party website sharing personal data between faction members. The website stores API key and private user information in its own database.</p>
+                <p>ToS:</p>
+                <div class="tbl-wrap wide">
+                    <table class="tbl">
+                        <thead>
+                        <tr>
+                            <th>Data Storage<span class="q">Will the data be stored for any purpose?</span></th>
+                            <th>Data Sharing<span class="q">Who can access the data besides the end user?</span></th>
+                            <th>Purpose of Use<span class="q">What is the stored data being used for?</span></th>
+                            <th>Key Storage &amp; Sharing<span class="q">Will the API key be stored securely and who can access it?</span></th>
+                            <th>Key Access Level<span class="q">What key access level or specific selections are required?</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><code>Persistent - until account deletion or faction change</code></td>
+                            <td><code>Faction</code></td>
+                            <td><code>Show information to other faction members</code></td>
+                            <td><code>Stored remotely securely / Used only for automation</code></td>
+                            <td><code>Limited Access</code></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Example No. 3</h3>
+                <p>Description: a browser extension providing notifications based on cooldowns and other user's activity which allows fully opt-in integration with other services.</p>
+                <p>ToS: You maintain full control of your data; everything is stored in your browser. No data is sent anywhere. You can view our detailed API usage here : link_to_api_usage_page</p>
+                <p>[] Service XYZ: Check the checkbox to integrate Service XYZ. Terms of Service for XYZ can be found here: link_to_XYZ_tos</p>
+                <p>[] Service ZZZ: Check the checkbox to integrate Service ZZZ. Terms of Service for ZZZ can be found here: link_to_ZZZ_tos</p>
+                <p>For such extension, ToS in the table format is not necessary, but might be useful to end users and could look something like this:</p>
+                <div class="tbl-wrap wide">
+                    <table class="tbl">
+                        <thead>
+                        <tr>
+                            <th>Data Storage<span class="q">Will the data be stored for any purpose?</span></th>
+                            <th>Data Sharing<span class="q">Who can access the data besides the end user?</span></th>
+                            <th>Purpose of Use<span class="q">What is the stored data being used for?</span></th>
+                            <th>Key Storage &amp; Sharing<span class="q">Will the API key be stored securely and who can access it?</span></th>
+                            <th>Key Access Level<span class="q">What key access level or specific selections are required?</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><code>Only locally</code></td>
+                            <td><code>Nobody</code></td>
+                            <td><code>Not eligible - only end user has access</code></td>
+                            <td><code>Stored locally / Not shared</code></td>
+                            <td><code>Limited Access</code></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Example No. 4</h3>
+                <p>Description: a google sheet pulling current plushie/flower prices.</p>
+                <p>ToS:</p>
+                <div class="tbl-wrap wide">
+                    <table class="tbl">
+                        <thead>
+                        <tr>
+                            <th>Data Storage<span class="q">Will the data be stored for any purpose?</span></th>
+                            <th>Data Sharing<span class="q">Who can access the data besides the end user?</span></th>
+                            <th>Purpose of Use<span class="q">What is the stored data being used for?</span></th>
+                            <th>Key Storage &amp; Sharing<span class="q">Will the API key be stored securely and who can access it?</span></th>
+                            <th>Key Access Level<span class="q">What key access level or specific selections are required?</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><code>Persistent - Until sheet deletion</code></td>
+                            <td><code>Everyone with a sheet access</code></td>
+                            <td><code>Competitive Advantage [Monitoring of underpriced Plushies/Flowers]</code></td>
+                            <td><code>Stored in code details / Everyone with sheet access</code></td>
+                            <td><code>Custom : 'market' -> 'itemmarket'</code></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Example No. 5</h3>
+                <p>Description: a discord faction bot where submitted API key is used to fetch data for other services.</p>
+                <p>ToS:</p>
+                <div class="tbl-wrap wide">
+                    <table class="tbl">
+                        <thead>
+                        <tr>
+                            <th>Data Storage<span class="q">Will the data be stored for any purpose?</span></th>
+                            <th>Data Sharing<span class="q">Who can access the data besides the end user?</span></th>
+                            <th>Purpose of Use<span class="q">What is the stored data being used for?</span></th>
+                            <th>Key Storage &amp; Sharing<span class="q">Will the API key be stored securely and who can access it?</span></th>
+                            <th>Key Access Level<span class="q">What key access level or specific selections are required?</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <code>Persistent - data is forever visible on faction discord</code>
+                                <code>Persistent - data is forever visible on other discord servers</code>
+                                <code>Persistent - data is saved to server DB</code>
+                            </td>
+                            <td>
+                                <code>Friends &amp; faction</code>
+                                <code>Service owners &amp; their customers</code>
+                            </td>
+                            <td>
+                                <code>Competitive advantage [Discord notifications about players holding large amounts of cash after selling items through Item Market / Bazaar]</code>
+                                <code>Personal gain [Selling data gathered with the key to other players / factions]</code>
+                            </td>
+                            <td><code>Stored securely / Shared with other services : XYZ Mug Bot, XYZ Cache Bot</code></td>
+                            <td><code>Limited Access</code></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="view" hidden>
+        <h1>Try it <span class="tag tag-v1">v1</span></h1>
+        <p class="inline-note" style="margin: 8px 0 4px;">This page is for API v1 only. Requests go straight from your browser to api.torn.com with your key. Nothing is stored on this page.</p>
+        <p class="inline-note" style="margin: 0 0 20px;">For API v2 there is a better, more advanced <a href="https://api-playground.torn.com/" target="_blank" rel="noopener">playground</a> with every v2 endpoint and parameter.</p>
+        <div class="key-row">
+            <div class="field">
+                <label for="api_key">API key</label>
+                <input type="text" class="input mono" id="api_key" autocomplete="off" spellcheck="false" placeholder="16 character key">
+            </div>
+            <span class="inline-note">Available v1 fields for each endpoint load once you leave this box.</span>
+        </div>
+
+        <details class="endpoint" id="userDemo">
+            <summary><span class="name">User</span><span class="url mono">https://api.torn.com/user/:ID?selections=:SELECTIONS&amp;key=:KEY</span></summary>
+            <div class="endpoint-body">
+                <div class="endpoint-form">
+                    <div class="field">
+                        <label for="u_id">User ID</label>
+                        <input type="text" class="input updateURL" data-field="u_" id="u_id" name="u_id" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="u_selections">Selections</label>
+                        <input type="text" class="input updateURL" data-field="u_" id="u_selections" name="u_selections" autocomplete="off" placeholder="basic,profile">
+                    </div>
+                </div>
+                <p class="inline-note"><strong>Notes:</strong> <sup>[1]</sup> User ID not required when requesting the key's owner data. <sup>[2]</sup> Accepts comma separated selections. <sup>[3]</sup> 'from' and 'to' UNIX timestamps can be passed to filter some selections</p>
+                <p class="inline-note u_fields"><strong>Available fields:</strong> Enter your API key in order to see the available fields.</p>
+                <pre id="u_url">https://api.torn.com/user/</pre>
+                <div class="endpoint-run">
+                    <button id="u_" class="btn try-btn" type="button" data-type="u_">Send request</button>
+                    <div class="radio-row">
+                        <label><input type="radio" name="u_responseType" value="raw" checked> Raw</label>
+                        <label><input type="radio" name="u_responseType" value="pretty"> Pretty</label>
+                    </div>
+                </div>
+                <div class="u_result"></div>
+            </div>
+        </details>
+
+        <details class="endpoint" id="propertyDemo">
+            <summary><span class="name">Property</span><span class="url mono">https://api.torn.com/property/:ID?selections=:SELECTIONS&amp;key=:KEY</span></summary>
+            <div class="endpoint-body">
+                <div class="endpoint-form">
+                    <div class="field">
+                        <label for="p_id">Property ID</label>
+                        <input type="text" class="input updateURL" data-field="p_" id="p_id" name="p_id" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="p_selections">Selections</label>
+                        <input type="text" class="input updateURL" data-field="p_" id="p_selections" name="p_selections" autocomplete="off">
+                    </div>
+                </div>
+                <p class="inline-note p_fields"><strong>Available fields:</strong> Enter your API key in order to see the available fields.</p>
+                <pre id="p_url">https://api.torn.com/property/</pre>
+                <div class="endpoint-run">
+                    <button id="p_" class="btn try-btn" type="button" data-type="p_">Send request</button>
+                    <div class="radio-row">
+                        <label><input type="radio" name="p_responseType" value="raw" checked> Raw</label>
+                        <label><input type="radio" name="p_responseType" value="pretty"> Pretty</label>
+                    </div>
+                </div>
+                <div class="p_result"></div>
+            </div>
+        </details>
+
+        <details class="endpoint" id="factionDemo">
+            <summary><span class="name">Faction</span><span class="url mono">https://api.torn.com/faction/:ID?selections=:SELECTIONS&amp;key=:KEY</span></summary>
+            <div class="endpoint-body">
+                <div class="endpoint-form">
+                    <div class="field">
+                        <label for="f_id">Faction ID</label>
+                        <input type="text" class="input updateURL" data-field="f_" id="f_id" name="f_id" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="f_selections">Selections</label>
+                        <input type="text" class="input updateURL" data-field="f_" id="f_selections" name="f_selections" autocomplete="off">
+                    </div>
+                </div>
+                <p class="inline-note"><strong>Notes:</strong> <sup>[1]</sup> Faction ID not required when requesting the key's owner data. <sup>[2]</sup> Accepts comma separated selections. <sup>[3]</sup> 'from' and 'to' UNIX timestamps can be passed to filter some selections. <sup>[4]</sup> The 'contributors' selection requires the inclusion of the stat name (I.e. &amp;stat=busts)</p>
+                <p class="inline-note f_fields"><strong>Available fields:</strong> Enter your API key in order to see the available fields.</p>
+                <pre id="f_url">https://api.torn.com/faction/</pre>
+                <div class="endpoint-run">
+                    <button id="f_" class="btn try-btn" type="button" data-type="f_">Send request</button>
+                    <div class="radio-row">
+                        <label><input type="radio" name="f_responseType" value="raw" checked> Raw</label>
+                        <label><input type="radio" name="f_responseType" value="pretty"> Pretty</label>
+                    </div>
+                </div>
+                <div class="f_result"></div>
+            </div>
+        </details>
+
+        <details class="endpoint" id="companyDemo">
+            <summary><span class="name">Company</span><span class="url mono">https://api.torn.com/company/:ID?selections=:SELECTIONS&amp;key=:KEY</span></summary>
+            <div class="endpoint-body">
+                <div class="endpoint-form">
+                    <div class="field">
+                        <label for="c_id">Company ID</label>
+                        <input type="text" class="input updateURL" data-field="c_" id="c_id" name="c_id" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="c_selections">Selections</label>
+                        <input type="text" class="input updateURL" data-field="c_" id="c_selections" name="c_selections" autocomplete="off">
+                    </div>
+                </div>
+                <p class="inline-note"><strong>Notes:</strong> <sup>[1]</sup> Company ID not required when requesting the key's owner data. <sup>[2]</sup> Accepts comma separated selections.</p>
+                <p class="inline-note c_fields"><strong>Available fields:</strong> Enter your API key in order to see the available fields.</p>
+                <pre id="c_url">https://api.torn.com/company/</pre>
+                <div class="endpoint-run">
+                    <button id="c_" class="btn try-btn" type="button" data-type="c_">Send request</button>
+                    <div class="radio-row">
+                        <label><input type="radio" name="c_responseType" value="raw" checked> Raw</label>
+                        <label><input type="radio" name="c_responseType" value="pretty"> Pretty</label>
+                    </div>
+                </div>
+                <div class="c_result"></div>
+            </div>
+        </details>
+
+        <details class="endpoint" id="itemDemo">
+            <summary><span class="name">Market</span><span class="url mono">https://api.torn.com/market/:ID?selections=:SELECTIONS&amp;key=:KEY</span></summary>
+            <div class="endpoint-body">
+                <div class="endpoint-form">
+                    <div class="field">
+                        <label for="i_id">Item ID</label>
+                        <input type="text" class="input updateURL" data-field="i_" id="i_id" name="i_id" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="i_selections">Selections</label>
+                        <input type="text" class="input updateURL" data-field="i_" id="i_selections" name="i_selections" autocomplete="off">
+                    </div>
+                </div>
+                <p class="inline-note"><strong>Notes:</strong> <sup>[1]</sup> Accepts comma separated selections.</p>
+                <p class="inline-note i_fields"><strong>Available fields:</strong> Enter your API key in order to see the available fields.</p>
+                <pre id="i_url">https://api.torn.com/market/</pre>
+                <div class="endpoint-run">
+                    <button id="i_" class="btn try-btn" type="button" data-type="i_">Send request</button>
+                    <div class="radio-row">
+                        <label><input type="radio" name="i_responseType" value="raw" checked> Raw</label>
+                        <label><input type="radio" name="i_responseType" value="pretty"> Pretty</label>
+                    </div>
+                </div>
+                <div class="i_result"></div>
+            </div>
+        </details>
+
+        <details class="endpoint" id="tornDemo">
+            <summary><span class="name">Torn</span><span class="url mono">https://api.torn.com/torn/:ID?selections=:SELECTIONS&amp;key=:KEY</span></summary>
+            <div class="endpoint-body">
+                <div class="endpoint-form">
+                    <div class="field">
+                        <label for="t_id">ID</label>
+                        <input type="text" class="input updateURL" data-field="t_" id="t_id" name="t_id" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="t_selections">Selections</label>
+                        <input type="text" class="input updateURL" data-field="t_" id="t_selections" name="t_selections" autocomplete="off">
+                    </div>
+                </div>
+                <p class="inline-note"><strong>Notes:</strong> <sup>[1]</sup> Accepts comma separated selections.</p>
+                <p class="inline-note t_fields"><strong>Available fields:</strong> Enter your API key in order to see the available fields.</p>
+                <pre id="t_url">https://api.torn.com/torn/</pre>
+                <div class="endpoint-run">
+                    <button id="t_" class="btn try-btn" type="button" data-type="t_">Send request</button>
+                    <div class="radio-row">
+                        <label><input type="radio" name="t_responseType" value="raw" checked> Raw</label>
+                        <label><input type="radio" name="t_responseType" value="pretty"> Pretty</label>
+                    </div>
+                </div>
+                <div class="t_result"></div>
+            </div>
+        </details>
+    </section>
+
+    <section id="builder" class="view" hidden>
+        <h1>Custom keys</h1>
+        <div class="builder-top">
+            <p style="margin-top: 8px;">It is possible to generate an API key which has permissions to the exact selections required for your tool.</p>
+            <p>By default, custom keys can access only the default selection, timestamp and lookup selection.
+                <br>For every
+                selection you pick, a custom key returns the same data a regular key would, whatever access level that
+                selection requires.
+                <br>Some selections return different data depending on whether the key is a Limited Access key or not.
+                E.g. the revive status in 'user' -> 'profile' or battle stats in 'user' -> 'personalstats'.
+                <br>For those,
+                <strong>Include sensitive data</strong> checkbox decides what a custom key gets:
+                    <ul>
+                        <li>Checked - higher access data included</li>
+                        <li>Unchecked - only lower access data included</li>
+                    </ul>
+            Hover over the checkbox below to see which selections this affects.
+            <p>Custom keys created before this option existed keep the permissions they had (with "options: legacy permissions" shown in the UI).</p>
+            <p>You can always check the permissions of a key on this endpoint: <a class="mono"
+                    href="https://api.torn.com/key/?selections=info&key=" target="_blank" rel="noopener">https://api.torn.com/key/?selections=info&amp;key=YOUR_KEY_HERE</a></p>
+            <p>Once you've chosen all the selections you wish for your new API key to have, simply click the link to
+                generate your new key. This will open your settings page in a new tab.</p>
+            <div class="field builder-key">
+                <label for="keyNameInput">Key name</label>
+                <input type="text" class="input" name="keyNameInput" id="keyNameInput" autocomplete="off">
+            </div>
+            <label class="builder-sensitive" for="sensitiveDataInput">
+                <input type="checkbox" id="sensitiveDataInput" name="sensitiveDataInput">
+                Include sensitive data
+                <span class="tip" id="sensitiveDataTip" hidden></span>
+            </label>
+        </div>
+        <div class="levels">
+            <span class="level lvl-public">Public</span>
+            <span class="level lvl-minimal">Minimal Access</span>
+            <span class="level lvl-limited">Limited Access</span>
+            <span class="level lvl-full">Full Access</span>
+        </div>
+        <div id="selected-values" class="builder-link mono"></div>
+
+        <div id="logCategoryIds" class="log-cats" hidden>
+            <p style="margin: 0;">When creating custom keys which include the 'user' -> 'log' selection, you can specify log categories or log types this key should have access to.
+                If no log categories or types are specified, the key will have access to all log categories and types.
+                You can only select <strong>up to 10 categories</strong>.</p>
+            <div class="picked"><label id="logText">Selected log categories:</label> <span id="selections"></span></div>
+            <div class="field log-search">
+                <label for="logsInput">Search</label>
+                <input type="text" class="input" name="logsInput" id="logsInput" autocomplete="off">
+            </div>
+            <div id="categoryList"></div>
+        </div>
+
+        <div id="resultBuilder"><span class="loading">Loading selections&hellip;</span></div>
+        <div class="footnotes">
+            <div><span class="tag tag-v1">v1</span> This selection is only available in API v1.</div>
+            <div><span class="tag tag-v2">v2</span> This selection is only available in API v2.</div>
+            <div>*This selection has different access in API v1 and v2.</div>
+        </div>
+    </section>
+
+    <section id="patchNotes" class="view" hidden>
+        <h1>Patch notes</h1>
+        <div id="patchResponseBuilder" class="patch-notes"></div>
+    </section>
+</main>
+<script src="/api/docs/js/api.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5a0aec0a85572b2',t:'MTc5NDYwMzM4MQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5a0aec0a85572b2',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

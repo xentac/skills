@@ -80,7 +80,7 @@ and the upstream `Last-Modified`. Read it, then the file, in this order:
    stale for the question — see `research-methods.md`.
 
 Cite the `stored_in` date (and `last_checked`, if newer) when citing a
-snapshot. `api-v2-openapi.json` is ~1.2MB — query it with `jq` (e.g.
+snapshot. `api-v2-openapi.json` is ~1.4MB — query it with `jq` (e.g.
 `jq '.paths | keys'`, `jq '.paths["/user/basic"]'`) rather than
 reading it whole.
 
